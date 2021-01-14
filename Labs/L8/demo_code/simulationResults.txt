@@ -1,0 +1,34 @@
+Portfolio#100  acct#1000  $10000
+entu  0 $43
+nortel  0 $44
+newbridge  0 $47
+xerox  0 $49
+portfolio value $10000
+
+nortel  $55
+TRANSACTION: BUY 30 shares of nortel  30 $55 portfolio $9970
+nortel  $54
+nortel  $53
+nortel  $15
+TRANSACTION: BUY 40 shares of nortel  70 $15 portfolio $8740
+xerox  $35
+newbridge  $53
+TRANSACTION: BUY 30 shares of newbridge  30 $53 portfolio $8710
+nortel  $35
+entu  $43
+TRANSACTION: BUY 20 shares of entu  20 $43 portfolio $10080
+entu  $15
+TRANSACTION: BUY 20 shares of entu  40 $15 portfolio $9490
+entu  $65
+nortel  $75
+entu  $85
+entu  $95
+nortel  $30
+entu  $100
+
+Portfolio#100  acct#1000  $4850
+entu  40 $100
+nortel  70 $30
+newbridge  30 $53
+xerox  0 $35
+portfolio value $12540

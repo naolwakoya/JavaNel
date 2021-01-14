@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>2404</title>
+<style type="text/css">
+body {
+	font-family: Arial, Helvetica, sans-serif;	
+	margin-left:80px;
+	margin-right:80px;
+}
+h1, h2, h3 {
+	font-weight: bold;
+	color: blue;
+}
+p {
+		font-size: large;
+}
+
+.red {
+	color: #F00;
+}
+.bold {
+	font-weight: bold;
+}
+.requirement {
+	font-weight: bold;
+	background-color: #6AF37A;
+}
+.requirement_danger {
+	font-weight: bold;
+	background-color: #F47272
+}
+.requirement_warning {
+	font-weight: bold;
+	background-color: #F6CA54
+}
+.code {
+	font-family: "Courier New", Courier, monospace;
+}
+.requirement_warning1 {	font-weight: bold;
+	background-color: #F7BD36
+}
+</style>
+</head>
+<body>
+<h1>COMP 2404 Fall 2019 Assignment 4 </h1>
+<h1 class="red">Due Wed Dec 4 by 10:00pm in Culearn.</h1>
+<h1></h1>
+<p class="red">Assignment Submissions Instructions: Assignments must be submitted via <a
+href="http://www.carleton.ca/culearn">culearn</a> by the due date and time. Late assignments will not be accepted. See the Development Process Requirements below for what exactly to submit and how.</p>
+<p>You may work on assignments in pairs if you want, in which case only one copy should be submitted with both your names on  the files and in the ReadMe.txt file. If neither submits (because, for example, they thought the other one would) both get a mark of 0.</p>
+<hr />
+<h2 class="red">Revisions:</h2>
+<p class="red">Rev 1 [Nov 21] fixed typo in FR4.2:</p>
+<p class="code">follow -u userid -playlist_name -f stop</p>
+<p>Should this be:</p>
+<p class="code">follow -u userid -p playlist_name -f stop</p>
+<hr />
+<h2>Categorization of Assignment Requirements</h2>
+<p>All assignments in this course will be based on itemized and categorized requirements. There will be four categories of requirements: Process Requirements, Functional Requirements, System Requirements, and Domain Requirements.</p>
+<p><span class="bold">Process requirements</span> (aka Software Engineering Requirements, Development Process Requirements, Good Practice Requirements) are requirements imposed by the software development process that is  being followed by the developers. <span class="red">Here they  include the requirements on how to submit your assignments successfully and have them marked</span>. They do not have anything to do with the specific application being developed  but rather pertain to the development process that is being used. They include the requirements that reflect how your assignment will be tested and marked. <span class="red">In assignments you will not get marks for meeting process requirements, instead you lose marks if they are not met -in some cases ALL of your marks</span>.</p>
+<p><span class="bold">Functional</span>, <span class="bold">System</span>, and <span class="bold">Domain</span> requirements all pertain to the actual application being developed. Collectively these are referred to as the <span class="bold">Design Requirements</span>. In assignments you will get marks for those design requirements that are met. So the number of these requirements determine what the assignment will be marked out of.</p>
+<p><span class="bold">Functional Requirements</span> (aka User Requirements) pertain to what the user wants to do with the app and how it is to be operated. If a functional requirement is not met one would expect a user or client to notice that. The wording of functional requirements should make sense to the intended user or client. They should not contain references to &quot;objects&quot; in the object-oriented programming sense.</p>
+<p><span class="bold">System Requirements</span> (aka Constraints) are requirements imposed on the developer to make the development profitable (or evolvable, or resuable, ...). If a system requirement is not met the user, or client, of the app would likely not be aware of that. For example, the user of your app is not aware of whether you used objects to implement it or not. System requirements can make reference to &quot;objects&quot; in the object-oriented programming sense because the developers understand that.</p>
+<p><span class="bold">Domain Requirements</span> (aka Legal Requirements) are requirements imposed by the domain, or demographic, in which your app is intended to operate. For example, if you are making a PG13 movie about  object-oriented development then the requirements that must be met for a movie to be considered PG13 are domain requirements. (Treating people as objects might be considered inappropriate for a young audience; treating objects as people will likey garner an R-rating.)</p>
+<p>It will be an ongoing challenge in the course to fit requirements into one of the four categories or determine if there is an important missing category. In real life there are often many more requirement catagories.</p>
+<p>&nbsp;</p>
+<hr width="100%">
+<p><span class="badge-danger">Marking:</span> This assignment 
+  is based on 13 design requirements numbered <span class="badge-success"><span class="requirement">FR4.1</span></span>...<span class="badge-success"><span class="requirement">SR4.13</span></span> for a total of <span class="red">26</span> marks. </p>
+<p>Marks are awarded, or deducted, based on formalized requirements as follows:</p>
+<table border="1">
+  <tr>
+    <th width="83">Req Type</th>
+    <th width="716">Assignment Grading</th>
+  </tr>
+  <tr>
+    <td><span class="requirement_danger">R0.x</span></td>
+    <td><p><span class="requirement_danger">Critical Submission and Intent Requirements (Process Requirements).</span> Assignment gets 0 if <span class="bold">any</span> critical submission<br>
+      requirement (shown in red) is not met.<br>
+    </p></td>
+  </tr>
+  <tr>
+    <td><span class="requirement_warning">R0.x</span></td>
+    <td><p><span class="requirement_warning">Good Practice Requirements (Process Requirements).</span> You lose 2 marks for each good practice <br>
+      requirement (shown in amber) not met.<br>
+    </p></td>
+  </tr>
+  <tr>
+    <td><span class="requirement">Rx.x</span></td>
+    <td><p><span class="requirement">Design Requirements.</span> You earn 2 marks for each design requirement (green) satisfied and well implemented; 1 mark if it's partly met or met but not well implemented; and 0 if it's not met or attempted.</p></td>
+  </tr>
+  <tr>
+    <td>Rx.x</td>
+    <td><p><span class="bold">Out of Scope Requirements.</span> Requirements that are not coloured pertain to the project as a whole be are not being evaluted in this scope (assignment).</p></td>
+  </tr>
+</table>
+<h2 class="red">&nbsp;</h2>
+<h2>Development Process Requirements</h2>
+<p>The following requirements will pertain to all your assignments regardless of what your application is supposed to do (i.e. regardless of the design requirements). These requirements are intended to ensure that your code is readable and maintainable by other programmers (or markable by TA's in our case), robust (it does not crash from bad pointer references or memory allocation problems), and follows good object-oriented programming practice. You will lose 2 marks from your total assignment mark for each of the following requirements that is not satisfied.<span class="red"> However if you do not satisfy requirement PR0.1, PR0.2 or PR0.3 you will get zero for the assignment mark.</span></p>
+<p><span class="badge badge-danger"><span class="requirement_danger">PR0.1</span></span> <span class="red">[Assignment mark = 0 if not met]  UNIQUENESS REQUIREMENT. The solution and code you submit MUST be unique. That is, it cannot be a copy of, or be too similar to, someone else's assignment, or  code found elsewhere. A mark of 0 will be assigned to any assignment that is judged by the instructors or the TA's not to be unique.</span></p>
+<p> You are, however, free to use any code posted on our course web (e.g. notes, sample code, tutorial demo code and answers) as part of you assignment solutions. </p>
+<p><span class="badge badge-danger"><span class="requirement_danger">PR0.2</span></span> <span class="red">[Assignment mark = 0 if not met] CODE SUBMISSION REQUIRMENTS: For the purposes of assignments your code and supporting documents must be submitted to culearn and comply with the following.</span></p>
+<p class="red">1) You should submit C++ source code file and any supporting script files, documentation files required and, when appropriate the associated make file to assist the compilation. Your name and student number should be at the top of each file. There should always be a ReadMe.txt file with your assignment. If you are working with a partner, both names and student numbers must appear on the files and only submit one copy of the assignment to culearn.</p>
+<p class="red">2) COMPRESSION If your assignment files are compressed we will accept only .tar, .tar.gz, or .zip format compatible with one of the following three linux commands for extraction:</p>
+<p class="red">tar -xvf filename.tar<br>
+  tar -xvf filename.tar.gz<br>
+  unzip filename.zip</p>
+<p class="red"> <br>
+  3)ReadMe.txt: Your assignment must be accompanied by a ReadMe.txt file in which the following should appear:</p>
+<p class="red">-Which extraction command should be used to uncompress your assignment files.<br>
+  -Which g++ compiler command should be executed to compile your code.<br>
+  -Instructions on what script, or scripts to run  to demonstrate your testing.</p>
+<p class="red">4) In general you should provide a testing script, or main program that runs appropriate test cases to demonstrate that the design requirements are being met. (Not all requirements can be demonstrated like that, but functional requirements usually can be -especially if we are building command line applications.)</p>
+<p><span class="badge badge-danger"><span class="requirement_danger">PR0.3</span></span> <span class="red"> [Assignment mark = 0 if not met] CODE COMPILATION and TESTING: </span></p>
+<p class="red">The TA must be able to compile your code using the g++ compiler installed in our 2401-F19.ova virtual box linux image. (A current gcc installation should be compatible with that, but you should check.). The TA will run the g++ command specified in your ReadMe.txt file and when compiling is complete run your exectuable to begin verifying the assignment requirements. If your code cannot be compiled as described the assignment mark will be zero. (The TA's will not debug your code in an effort to get it to compile.)</p>
+<p class="red">&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.4</span></span> CODE ORGANIZATION: Your code files should contain only one .cpp file containing the substring &quot;main&quot; in the title and that file should have the<span class="code"> int main()</span> entry point function for your code. Your object-oriented classes should each be represented in two files <span class="code">classname.h</span> and <span class="code">classname.cpp</span>. The .h header files should contain only type declarations and not executable code (method bodies). </p>
+<p>&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.5</span></span> VARIABLE AND FUNCTION NAMES: All of your variables, methods and classes should have meaningful names that reflect their purpose. Do not follow the convention in math courses where they say things like: &quot;let x be the number of customers and let y be the number of products...&quot;. Instead call your variables <span class="code">numberOfCustomers</span> or <span class="code">numberOfProducts</span>. Your program should not have any variables called &quot;x&quot; unless there is a good reason for them to be called &quot;x&quot;. (One exception: it's OK to call simple for-loop counters i,j and k etc. when the context is clear and VERY localized.)</p>
+<p>&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.6</span></span> MEANINGFUL CONSTANT NAMES: Constant values should have meaningful names and not just be represented as numbers or strings in expressions. For example don't say:<br>
+  <span class="code">cin.getline(input, 80);</span><br>
+  rather say:<br>
+  <span class="code">cin.getline(input, MAX_INPUT_LENGTH);</span></p>
+<p>&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.7</span></span> VARIABLES: All instance variables in your classes should be <span class="code">private</span>, unless a specific design requirements asks for them to be <span class="code">public</span> (which is unlikely). It is good programming practice to design objects that provide services to others through their <span class="code">public</span> methods. How they store their variables is their own private business. C or C++ unbounded arrays should not be used as public data structures. They should be encapsulated in a class which takes care of their length or number of elements. Also methods used soley by a class for its own housekeeping, and which are not considered part of the public inteface, should be in the <span class="code">private</span> section of a class.</p>
+<p>Your code should not be coupled through global variables. That is, objects should not communicate through the existance of global variables. Instead pass appropriate objects through constructor parameters.</p>
+<p>&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.8</span></span> ROBUSTNESS REQUIREMENTS: Your program should not crash when the TA is marking it because of a bad pointer dereferences, out of bounds error memory access, or memory leaks or double deletions. <span class="red">We get especially annoyed by out of bounds  &quot;off by one&quot; errors! </span>Your code should not have any memory leaks or double deletions. Moreover the heap memory should be empty when your procedure <span class="courier">main() </span>returns. That is, all heap objects should be properly deleted before the program exits. </p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.9</span></span> COMMENTING REQUIREMENTS: Comments in your code must coincide with what the code actually does. It is a  common bug for people to modify code and forget to modify the comments and so you end up with comments that say one thing and code that actually does another. Don't use comments to clarify poor variable or method names -instead choose good variable names and method names that makes the code more &quot;self-commenting&quot;. </p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.10</span></span> OUTPUT LABELING REQUIREMENTS: Your programs output must have sufficient comments or remarks so that the output can understood. Don't have your program just write out a bunch of integers with no indication of what they mean or what the test they supposedly demonstrate.<span class="red"> The TA's should be able to read and understand your output WITHOUT having to look at your code to see what the output means.</span> It is a good idea to refer specifically to the numbered design requirements in your output to help indicate which requirement you are demonstrating.</p>
+<p>&nbsp;</p>
+<p class="red">VERY IMPORTANT: </p>
+<p class="red">Requirements tend to make sense to the person who wrote them  because that person knows what they were trying to say. You don't know what they were trying to say, only what they actually did say. So you need to ask lots of questions when things are not clear. A picture is worth a thousand words and a requirement fix is worth a thousand programing fixes.</p>
+<p class="red">Any sample code fragments provided with assignments  might have bugs (although none are  put there intentionally). It is part of your job to identify errors in the code and in the requirements and seek clarification. </p>
+<hr />
+<h2>Assignment 4: Synchronized Behaviour Based on Gamma Patterns</h2>
+
+
+<p>&nbsp;</p>
+<p>Please be aware of the following relationship between Refactoring, Design Patterns and Design Experience. Design Patterns can be thought of  as Refactorings, that is, better ways to solve problems that were being solved in other ways. Once learned however, these refactorings become the way you might solve the problem in the first place -it becomes part of your design experience. These days the Gamma patterns, like the Observer Pattern, are used to solve the problem in the first place. The refactorings have become part of the experience passed down to others. So refactoring is how we discover better ways so solve problems and then by documenting them as patterns they become part of our catalog of design techniques much the way that algorithms and data structures passed on experience to procedure-oriented designers.</p>
+<p>&nbsp;</p>
+<h2>Scope  </h2>
+
+<p>A new client has seen the prototypes you have built, especially the Assignment 2 version. They are interested in having you adapt the product to their requirements. Here is a their scenario:</p>
+<p>A client representing group of musicians wants you to adapt your prototype so they can use it to manage  setlists during rehearsals and performances. Setlists are lists of songs that are meant to be performed together in the order they are listed. They want to use our playlists as their setlists. (From here on we will use the terms setlist and playlist interchangeably.) </p>
+<p>They want us to add a new functional capability to the code developed so far and we will base our solution on the Gamma Observer Pattern. You can base your solution on any code base: your A2 or A3 solution or solutions we might post for A2 or A3. Your solution for this assignment need NOT include the persistent storage of database -but can use it if you prefer. That is, we are forking a new product for a new client and it can be forked from either the Assignment 2 or Assignment 3 state of the current product.</p>
+<p>The musicians often have a situation where one band member makes changes to a setlist that must be reflected in the same setlist of other band members. In this scenario each musician (user) has their own copy of a setlist. So they want the application to be modified so that band members can have their setlists follow the changes made to another member's setlist. They've requested we add commands that lets band members have their setlists follow the contents of another member's setlist. Specifically, they want you to implement the following new command:</p>
+<p class="code">follow -u userid -p playlist_name -f userid2</p>
+<p>for example:</p>
+<p class="code">follow -u ajones -p brass_monkey_set1 -f cindy</p>
+<p>In which case <span class="code">ajones</span>'s <span class="code">brass_monkey_set1</span> setlist would be updated to reflect the contents of a similiarly named setlist owned by <span class="code">cindy</span>. Whenever user <span class="code">cindy</span> makes a change to her <span class="code">brass_monkey_set1</span> setlist <span class="code">ajones</span>'s setlist of the same name will automagically update to be the same. Changes would pertain to adding, removing tracks and reordering tracks. For setlists it is necessary that tracks be in a particular orderd.</p>
+<p>The command</p>
+<p class="code">follow -u ajones -p brass_monkey_set1 -f stop</p>
+<p>Should cause <span class="code">ajones</span>'s <span class="code">brass_monkey_set1</span> setlist to stop following that of another user.</p>
+<p>By the way there are several iPad apps (Forscore, Newzic for example) that lets orchestras have lists of pdf scores and have the feature that a users can have their score follow that of the orchestra conductor. These apps also seem to be using the &quot;follower&quot; protocol for keeping scores in synch.</p>
+<p>&nbsp;</p>
+<hr />
+<h2>&nbsp;</h2>
+<h2>Functional and System Requirements</h2>
+<p class="red">You must provide a testing script that the TA's can run (i.e .read) that demostrates all of the requirements. You will only get marks for those requirements tested in your script but the TA's will interact with your application through the command line interface as well to run additional tests. Your README.txt file must tell us how to run your script.</p>
+<p><span class="bold">FR4.1)</span> The application should provide the command<span class="code"></span>: </p>
+<p class="code">follow -u userid -p playlist_name -f userid2</p>
+<p>Which should cause<span class="code"> userid</span>'s playlist <span class="code">playlist_name</span> to have exactly the same contents as a similarly named playlist of <span class="code">userid2</span>. The users must still have their own separate setlists -that is, you cannot just &quot;point&quot; both users to the same list.</p>
+<p><span class="bold">FR4.2)</span> The application should provided the command:</p>
+<p class="code">follow -u userid -p playlist_name -f stop</p>
+<p>It should cause <span class="code">userid</span>'s playlist <span class="code">playlist_name</span> to stop following changes of another user. The users must still have their own separate setlists -that is, you cannot just &quot;point&quot; both users to the same list.</p>
+<p><span class="bold">FR4.3)</span> If changes are made to a playlist this is being followed then those changes should be reflected right away in playlists that are followers. The followers must  have their own  setlists -that is, you cannot just &quot;point&quot; followers to another user's setlist.</p>
+<p><span class="bold">FR4.4)</span> The code should withstand users trying to mutually follow each others similarly titled playlists. Withstand means you must either accommodate it or prevent it from happening. The code should not crash because two users tried to mutually follow each other's playlists of the same name.</p>
+<p><span class="bold">FR4.5)</span> The code should withstand a user trying to follow their own playlist. Withstand means you must either accommodate it or prevent it from happening. The code should not crash because a user tried to follow one of their own playlists.</p>
+<p><span class="bold">FR4.6)</span> The code should withstand a user trying to follow a non existing playlist. Withstand means you must either accommodate it or prevent it from happening. The code should not crash because a user tried to follow another user who does not have a playlist of the right name.</p>
+<p><span class="bold">FR4.7)</span> Users should be able to follow more than one playlist. That is, several of their playlists could be following playlists of other users. (But each playlist can only follow one other list though.)</p>
+<p><span class="bold">FR4.8)</span> Playists should be able to have more than one follower.</p>
+<p></p>
+<p><span class="bold">FR4.9)</span> If a user's playlist is deleted then followers of that list must not be left &quot;dangling&quot;. They must be properly deregistered as followers.</p>
+<p><span class="bold">FR4.10)</span> If a user's playlist is deleted then it must be deregistered from any list it is following. The list being followed must not be left &quot;thinking&quot; that it still has the follower.</p>
+<p></p>
+<p><span class="bold">SR4.11) </span> The implementation of the <span class="code">follow</span> command should be based on the Gamma <span class="bold">Observer Pattern</span>. </p>
+<p><span class="bold">SR4.12) </span> The implementation should make use of <span class="code">Subject</span> and <span class="code">Observer</span> abstract superclasses and make use of methods with names that correspond as closely as possible to the method protocol of the Gamma et al Observer pattern. </p>
+<p></p>
+<p><span class="bold">SR4.13)</span> The implementation should maintain separate playlists for each user. That is, that ability of a user to follows the setlist of another  should not be implemented by simply having several user objects point at the same setlist. The user objects should still have their own copies of setlists. (A long term goal is to have the users setlists be on different devices and have the observer pattern  operate over a wifi or bluetooth network.)</p>
+<p>&nbsp;</p>
+<hr />
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>2404</title>
+<style>
+body {
+	font-family: arial;
+	margin-left: 80px;
+}
+p {
+	font-size:24px;
+}
+pre {
+	font-size:24px;
+	font-family: 'Courier New';
+}
+hr {
+	width: 100%;
+	height: 2px;
+	
+	margin-top:10px;
+	margin-bottom:10px
+}
+.header {
+	text-align: center;
+	font-weight: bold;
+	font-size: 40px;
+	
+	margin-top:0px;
+	margin-bottom:0px;
+	
+	color: rgb(153, 0, 0);
+}
+.subheader {
+	color: #000099;
+	
+	margin-bottom:100px;
+}
+.segment-header {
+	color: rgb(0, 0, 153);
+	font-size: 30px;
+}
+.black-bold {
+	color: rgb(0,0,0);
+	font-weight: bold;
+}
+.glossary-term {
+	font-weight: 700;
+	color: #000099;
+}
+.code {
+	font-family: 'Courier New';
+}
+.comment {
+	color:rgb(0, 128, 0);
+}
+ul li {
+	margin-bottom: 5px;
+	font-size:24px;
+}.red {
+	color: #F00;
+}
+</style>
+</head>
+<body>
+<p class="header">COMP 2404 - Fall 2019  Tutorial 06</p>
+<p class="header subheader">Accessing SQLite Data from C++</p>
+<hr/>
+<p>&copy; L.D. Nel 2019</p>
+<hr />
+<p class="segment-header">Description:</p>
+<p>In this tutorial we will look at how to access an SQLite database from within your C++ code.</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="segment-header">&nbsp;</p>
+<p class="segment-header">Preliminary:</p>
+<p>Verify that you are able to access the SQLite database using its sqlite3.exe console app as you did in the previous tutorial. If necessary review those steps before proceeding with this tutorial.</p>
+<p><img src="images/00preliminary.png" width="606" height="338" alt=""/></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="segment-header">&nbsp;</p>
+<p class="segment-header">Problem 1: Compiling SQLite Access Into Your C++ Code:</p>
+<p class="segment-header black-bold">&nbsp;</p>
+<p>Download the SQLite Amalgamation from the sqlite.org downloads page <a href="https://www.sqlite.org/download.html">https://www.sqlite.org/download.html</a> and unzip the contents.</p>
+<p><img src="images/02Amalgamation.png"></p>
+<p>&nbsp;</p>
+<p>Copy the extracted <span class="code">sqlite3.h</span> and <span class="code">sqlite3.c</span> files into your directory where you will be writing and compiling your <span class="code">.cpp</span> code files (i.e. add them to the code provided in the demo_code folder).</p>
+<p>SQLite is written in C, not C++. So use the <span class="code">gcc</span> C compiler to compile only and object file from <span class="code">sqlite3.c</span> <span class="red">(Notice this is s gcc compile and not a g++ compile.)</span></p>
+<p class="code">$gcc -c sqlite3.c</p>
+<p>This should produce an <span class="code">sqlite3.o</span> object file that we can link in with the <span class="code">main.cpp</span> used for the C++ application.</p>
+<p></p>
+<p>Look at the  <span class="code">main.cpp</span> file provided with the demo code  it should have contents like the following. Notice it includes the local <span class="code">sqlite3.h</span> file) For what is to follow it's helpful to examine the sqlite.org C interface reference to understand the functions being called: <a href="http://www.sqlite.org/cintro.html">http://www.sqlite.org/cintro.html</a>).</p>
+<p>&nbsp;</p>
+<pre>
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+#include "sqlite3.h"
+
+string input; //input from user
+
+sqlite3 *db; //pointer to our database
+char * zErrMsg = 0; //pointer to error used by sqlite3
+int rc; //return code
+
+int main(void){
+
+  cout << "Hello SQLite\n";
+
+  //establish connection to database
+  rc = sqlite3_open("test.db", &db);
+  if(rc){
+    cout << "Could Not Open Database: "
+         << sqlite3_errmsg(db);
+    cout << "\nEXITING\n";
+    return 0;
+  }
+  else {
+    cout << "\nSUCCESSFULLY OPENED DATABASE: ";
+  }
+  //close database connection
+  sqlite3_close(db);
+
+
+  //keep console open until user presses a key
+  cout << "\n\n" << "Press any key to continue";
+  getline(cin, input);
+  return 0;
+}
+</pre>
+<p>&nbsp;</p>
+<p>Compile <span class="code">main.cpp</span> by itself like this:</p>
+<p class="code">g++ -g -Wall main.cpp</p>
+<p><img src="images/02CompileMainOnly.png" width="1444" height="260"></p>
+<p>&nbsp;</p>
+<p>Notice the errors that result because of undefined references (unimplemented functions). That's because the <span class="code">sqlite3.o</span> file compiled previously is not being linked in.</p>
+<p>Now compile by linking in the <span class="code">sqlite3.o</span> object file as well including the libraries that were referred to when <span class="code">sqlite3.o</span> was compiled (here we are also including some link options to make things thread-safe and dynamically linkable -these may or may not be needed so include them to be safe):</p>
+<p class="code">g++ -g -Wall main.cpp sqlite3.o -lpthread -ldl</p>
+<p>&nbsp;</p>
+<p>This time an <span class="code">a.out</span> should be produced and when run should open a new <span class="code">test.db</span> database.</p>
+<p><img src="images/02TestDB.png" width="938" height="297"></p>
+<p>&nbsp;</p>
+<p>When you press an key and close the program you should notice a <span class="code">test.db</span> sqlite database file has been created:</p>
+<p><img src="images/02TestDBFile.png" width="997" height="80"></p>
+<p>&nbsp;</p>
+<p>You have now successfully connected to a SQLite database.</p>
+<h2>&nbsp;</h2>
+<p>&nbsp;</p>
+<hr/>
+<p class="segment-header">&nbsp;</p>
+<p class="segment-header">Problem 2: Adding a Makefile:</p>
+<h2>&nbsp;</h2>
+<p>Next we will create a makefile to help with the compilation.</p>
+<p>Create a <span class="code">makefile</span> with the following contents:</p>
+<pre>
+OBJ = main.o sqlite3.o
+
+myApp: $(OBJ)
+	g++ -o myApp $(OBJ) -lpthread -ldl
+
+main.o:	main.cpp
+	g++ -c main.cpp
+
+sqlite3.o:	sqlite3.c sqlite3.h
+	gcc -c sqlite3.c
+
+clean:
+	rm -f $(OBJ) myApp
+
+
+</pre>
+<p>Verify that you can compile and run your code using this new makefile by executing:</p>
+<p class="code">make clean<br>
+  make myApp<br>
+./myApp</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="segment-header">&nbsp;</p>
+<p class="segment-header">Problem 3: Accessing beatles.db Database:</p>
+<h2></h2>
+<h2>&nbsp;</h2>
+<p>Next lets access the <span class="code">beatles.db</span> sqlite database from our C++ code and print the contents of the <span class="code">recordings</span> table to the console. As a reminder here is the ER model and Schema of the database.</p>
+<p>&nbsp;</p>
+<p class="segment-header">&nbsp;</p>
+<p><img src="images/01ERModel.png" width="795" height="492"></p>
+
+<p>&nbsp;</p>
+<p>Table Schema of the <span class="code">beatles.db</span> database</p>
+<p><img src="images/02Schema.png" width="715" height="433"></p>
+<p>&nbsp;</p>
+<p>Modify the <span class="code">main.cpp</span> to have the following contents. This code connects to the <span class="code">beatles.db</span> database, executes an SQL query on the data, and calls the &quot;callback&quot; function for each row of the resulting answer table. (A version of this file is provided in the demo code as <span class="code">problem3_main.cpp</span> for you to copy and paste from.)</p>
+<p>&nbsp;</p>
+<pre>
+//main.cpp
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+#include "sqlite3.h"
+
+
+string input; //user input from console
+const char * db_file_name = "beatles.db";
+sqlite3 *db; //pointer to our database
+char * zErrMsg = 0; //pointer to error returned by sqlite
+int rc; //return code
+
+const char * sql = "SELECT * FROM recordings"; //SQL Query String
+const char * data = "call back function called"; //passed back on callback;
+
+static int callback(
+  //callback funtion that will be called by sqlite3_exec() when SQL
+  //query has completed
+  void * data, //data provided to sqlite3_exec() [4th argument]
+  int argc, //Number of columns in answer table row
+  char ** argv, //array of string representing table row values
+  char ** azColName //array of strings representing column names
+  ){
+    //cout << (const char *) data << "\n";
+    for (int i=0; i&lt;argc; i++){
+      cout << argv[i] << ", ";
+    }
+    cout << "\n";
+    return 0;
+  }
+
+
+int main(void){
+
+  cout << "Hello SQLite\n";
+
+  //establish connection to database
+  rc = sqlite3_open(db_file_name, &db);
+  if(rc){
+    cout << "ERROR: Could Not Open Database: "
+         << sqlite3_errmsg(db);
+    cout << "\nEXITING\n";
+    return 0;
+  }
+  else {
+    cout << "\nSUCCESSFULLY OPENED DATABASE: " << db_file_name << "\n\n";
+    rc = sqlite3_exec(db, sql, callback, (void *) data, &zErrMsg);
+    if( rc != SQLITE_OK) {
+      cout << "ERROR EXECUTING SQL: " << zErrMsg;
+      sqlite3_free(zErrMsg);
+    }
+    else {
+      cout << "\nSQL QUERY SUCCEEDED\n";
+    }
+
+  }
+  //close database connection
+  sqlite3_close(db);
+
+
+  //keep console open until user presses a key
+  cout << "\n\n" << "Press any key to continue";
+  getline(cin, input);
+  return 0;
+}
+</pre>
+<p>Compile and debug the new <span class="code">main.cpp</span>. Once it runs successfully you should see the entries in the <span class="code">beatles.db</span> <span class="code">recordings</span> table printed to the console by your C++ code:</p>
+<p><img src="images/04Recordings.png"></p>
+<h2>&nbsp;</h2>
+<p>&nbsp;</p>
+<hr/>
+<p class="segment-header">&nbsp;</p>
+<p class="segment-header">Problem 4: Executing User SQL Querys</p>
+<h2>&nbsp;</h2>
+<p>Next we want to allow the user of our C++ app to type in an SQL query and have it run against the beatles.db database. We have provide a <span class="code">problem4_main.cpp</span> that should do this. Study that code and  the  <span class="code">main.cpp</span> file to match that contents. With this code try running some SQL queries against with your app. (Notice when the user types their SQL it does not seem to matter whether they end with a semi-colon or not -why is that?)</p>
+<p>Here is some sample output:</p>
+<p><img src="images/05 User SQL.png" width="787" height="400" alt=""/></p>
+<p>&nbsp;</p>
+<p>Look through the SQL documentation on the sqlite.org website and compose try different queries  against the <span class="code">beatles.db</span> database.</p>
+<p>&nbsp;</p>
+<p class="red">When you have completed these exercises show your work to the TA's to get credit for the tutorial.</p>
+<p>&nbsp;</p>
+</body>
+</html>

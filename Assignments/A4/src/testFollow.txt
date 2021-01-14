@@ -1,0 +1,18 @@
+add -p ajones "brass_monkey_set1"
+add -p cindy "brass_monkey_set1"
+
+follow -u ajones -p brass_monkey_set1 -f cindy
+
+add -l ajones "brass_monkey_set1" 15
+add -l ajones "brass_monkey_set1" 16
+
+follow -u cindy -p brass_monkey_set1 -f ajones
+
+add -l cindy "brass_monkey_set1" 18
+add -l cindy "brass_monkey_set1" 20
+
+follow -u ajones -p brass_monkey_set1 -f stop
+follow -u cindy -p brass_monkey_set1 -f stop
+
+show playlists -u ajones 
+show playlists -u cindy

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>2404</title>
+<style>
+body {
+	font-family: arial;
+	margin-left: 80px;
+}
+p {
+	font-size:24px;
+}
+	h1, h2 ,h3 {
+	color: rgb(0, 0, 153);		
+	}
+pre {
+	font-size:24px;
+	font-family: 'Courier New';
+}
+hr {
+	width: 100%;
+	height: 2px;
+	
+	margin-top:10px;
+	margin-bottom:10px
+}
+.header {
+	text-align: center;
+	font-weight: bold;
+	font-size: 40px;
+	
+	margin-top:0px;
+	margin-bottom:0px;
+	
+	color: rgb(153, 0, 0);
+}
+.subheader {
+	color: #000099;
+	
+	margin-bottom:100px;
+}
+.segment-header {
+	color: rgb(0, 0, 153);
+	font-size: 30px;
+}
+.black-bold {
+	color: rgb(0,0,0);
+	font-weight: bold;
+}
+.glossary-term {
+	font-weight: 700;
+	color: #000099;
+}
+.code {
+	font-family: 'Courier New';
+}
+.comment {
+	color:rgb(0, 128, 0);
+}
+ul li {
+	margin-bottom: 5px;
+	font-size:24px;
+}.red {
+	color: #F00;
+}
+</style>
+</head>
+<body>
+<p class="header">COMP 2404 Fall 2019</p>
+<p class="header subheader">Tutorial 01: Hello GCC -Compiling with g++ Compiler</p>
+<p>&copy; L.D. Nel 2019</p>
+<hr />
+<p class="red">Revisions will be noted here</p>
+<hr />
+<p class="segment-header">Description:</p>
+
+<p>The purpose of this tutorial is to make sure you understand the basics of compiling c++ code with the g++ compiler using a linux bash command shell. To accomplish this we will repeat the exercise described in the Hello World example in the notes but make some modifications to the code and the compilation.</p>
+<p>For this tutorial you will need to open a linux bash command shell in one of the linux images available to you (e.g. virtual box image, open stack image, an actual linux machine, or even the windows 10 subsystem for linux bash shell or a Mac with Xcode installed). Once open you can proceed with the exercise.</p>
+<p class="red">[Note on the HP4155 lab computers probably the virtual box image will be the easiest -openstack is still being tweaked by our tech support people this week.]</p>
+<p>&nbsp;</p>
+<p><img src="images/01terminal.png" width="890" height="372" alt="terminal"></p>
+
+<hr/>
+<p class="segment-header">Preliminary:</p>
+<p>To check that the compiler is installed and get its version execute:</p>
+<p><span class="code">gcc --version</span><span class="code"></span></p>
+<p>my output looked like this:</p>
+<p><img src="images/02version.png" width="1301" height="314" alt="version"></p>
+<hr/>
+<p class="segment-header">&nbsp;</p>
+<p class="segment-header">Compiling &quot;Hello World&quot;:</p>
+<p>Open a text editor and create a file <span class="code">main.cpp</span> with the following contents (You will learn more if you actually type the code rather than cutting and pasting.):</p>
+<pre>
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+int main(){
+
+    string namePrompt = "Enter name";
+    string exitPrompt = "Press ENTER to continue";
+    string input; //To hold user console input
+
+	  cout << namePrompt << "\n";
+    getline(cin, input);
+    cout << "Hello " << input << "\n";
+    //keep console open until user types a key and enter
+	  cout << exitPrompt;
+    getline(cin, input);
+	  return 0;  //0 means normal termination
+}
+</pre>
+<p>
+When your are done you can display the contents of the file to your console with:</p>
+<p><span class="code">cat main.cpp</span><br>
+<p>To compile this code execute</p>
+<p class="code">g++ -g -Wall main.cpp -o helloWorld</p>
+
+<p>g++ invokes the c++ compiler <span class="red">(gcc on the other hand would invoke the c compiler - a common starting mistake)</span> &quot;-g&quot; instructs the compiler to include debugging information, &quot;-Wall&quot; displays all warnings, &quot;-o helloWord&quot; request that the resulting executable be placed in a file named <span class="code">helloWorld</span> instead of the default <span class="code">a.out</span>. (Execute <span class="code">man gcc</span> to learn more about the command  attributes.)</p>
+<p>If sucessful we can run the executable by executing</p>
+<p class="code">./helloWorld</p>
+<p>Note that you need the &quot;<span class="code">./</span>&quot; to tell the terminal shell to look for <span class="code">helloWorld</span> in the current directory.</p>
+<p>Here is my screen capture showning the pervious steps:</p>
+<p><img src="images/03helloWorld2.png"></p>
+<p>&nbsp;</p>
+<p>Start looking over the syntax and seeing how much you can understand or deduce. <span class="code">cout</span> and <span class="code">cin</span> are provided by the <span class="code">&lt;iostream&gt;</span> built in library. They are objects that map to the console screen and keyboard input. Library <span class="code">&lt;string&gt;</span> provides an object implementation of character strings. To start finding out what you can do with strings look at: <a href="http://www.cplusplus.com/reference/string/string">http://www.cplusplus.com/reference/string/string/</a> See what you make of the <span class="code">getline()</span> function and see what other things look useful.</p>
+<hr>
+<p class="segment-header">&nbsp;</p>
+<p class="segment-header">Problem 1) Using Older C-Strings</p>
+<p>In general we will want to use the more object-oriented approach to strings as demonstrated above. However, you will run into a lot of c++ code based on the older c-style strings. c-style strings are just arrays of characters (terminated with a null character). They are typically declared as<br>
+</p>
+<p class="code">char * prompt = &quot;Enter name&quot;;</p>
+<p><span class="code">char * prompt</span> means <span class="code">prompt</span> is a <span class="black-bold">pointer</span> to a <span class="code">char</span>. That is, variable <span class="code">prompt</span> will contain the memory address of the start of the array of characters.</p>
+<p>Make another <span class="code">main2.cpp</span> that looks like the following (Notice we are no longer including &lt;string&gt;.): </p>
+<p>&nbsp;</p>
+<pre>
+#include &lt;iostream&gt;
+
+using namespace std;
+int main(){
+
+    char * namePrompt = "Enter name";
+    char * exitPrompt = "Press ENTER to continue";
+    int MAX_LENGTH = 80;
+    char input[MAX_LENGTH];
+
+	  cout << namePrompt << "\n";
+    cin.getline(input, MAX_LENGTH);
+    cout << "Hello " << input << "\n";
+    //keep console open until user types a key and enter
+	  cout << exitPrompt;
+    cin.getline(input, MAX_LENGTH);
+	  return 0;  //0 means normal termination
+}
+</pre>
+
+<p>What are all the differences you can spot between the two examples? Why would this code be considered less safe than the previous version?</p>
+<p>Compile and run the code. You will likely get some warnings about const conversion. We will study that later in the course. Here is my session:</p>
+<p><img src="images/03CharStar.png" width="959" height="351"></p>
+<hr/>
+<h2>&nbsp;</h2>
+<p class="segment-header">Problem 2 Creating Our first Class</p>
+<p>Next we will extend the code slightly by creating our first object-oriented <span class="code">class</span> representing a person. We will put this in its own file <span class="code">person.h</span> rather than in our <span class="code">main.cpp</span> file. Further the <span class="code">main.cpp</span> file will include the <span class="code">person.h</span> file so we will still only compile one file.</p>
+<p>Using a text editor create the following <span class="code">person.h</span> file with the following code that describes a <span class="code">class</span> Person:</p>
+<pre>
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Person {
+private:
+  string name;
+  string email_address;
+  string phone_number;
+public:
+  Person(string aName, string anEmailAddress, string aPhoneNumber){
+    name = aName;
+    email_address = anEmailAddress;
+    phone_number = aPhoneNumber;
+  }
+  void printOn(ostream & out){
+    out << name
+        << "  email: "
+        << email_address
+        << "  phone: "
+        << phone_number;
+  }
+
+};
+</pre>
+<p>Modify the <span class="code"> main.cpp</span> file to look as follows:</p>
+<pre>
+#include&lt;iostream&gt;
+#include &lt;string&gt;
+#include "person.h"
+
+using namespace std;
+
+int main(void){
+  string input;
+
+  cout << "Hello World\n";
+
+  Person lou("Lou", "ldnel@scs.carleton.ca", "613 520-2600 ex4335");
+  Person dan("Dan", "dan@hotmail.com", "613 555-1234");
+
+  lou.printOn(cout);
+  cout << "\n";
+  dan.printOn(cout);
+
+  //keep console open until user presses a key
+  cout << "\n\n" << "Press any key to continue";
+  getline(cin, input);
+  return 0;
+}
+</pre>
+<p>Note a few &quot;quirky&quot; things:</p>
+<p>-Notice I'm choosing to start my class name with a Captial letter (not required by the language).</p>
+<p>-The <span class="code">class Person { ... };</span> construct ends in a semi-colon but the <span class="code">int main(){ ...}</span> function does not. Remember that.</p>
+<p>-The <span class="code">Person</span> class <span class="code">void printOn(){...}</span> method has a return type (<span class="code">void</span>) but the constructor <span class="code">Person(){...}</span> does not. Also notice function <span class="code">main()</span> returns a seemingly meaningless <span class="code">int</span>.</p>
+<p>-The<span class="code"> &lt;iostream&gt;</span> and <span class="code">&lt;string&gt;</span> libraries are included using <span class="code">&lt;&gt;</span> but the <span class="code">person.h</span> file is included using <span class="code"><span class="code">&quot;&quot;</span></span>.</p>
+<p>-Notice part of the class is in a <span class="code">private:</span> section and part of the class is in a <span class="code">public:</span> section.</p>
+<p>-Notice I used three words: <span class="black-bold">method</span>, <span class="black-bold">constructor</span>, and <span class="black-bold">function</span> when referring to function-like things. What is the distinction?</p>
+<p>Compile this code with the following <span class="code">g++</span> command.</p>
+<p class="code">g++ -g -Wall main.cpp</p>
+<p>(Notice we are still only compiling one file.) The screen capture below shows this sequence.</p>
+<p><img src="images/04personTest.png"></p>
+<p>&nbsp;</p>
+<p>Start looking over the c++ code and see how much you can understand at this point.</p>
+<hr>
+<p>&nbsp;</p>
+<p class="segment-header">Problem 3 Using .h and .cpp Files To Represent A Class</p>
+<p>There is a structural problem with the code in the previous example. The <span class="code">.h</span> file contains both type declaration statements and executable statements. (The statements inside a function, method, or constructor body are executable statements.)</p>
+<p>The <span class="code">.h</span> file is not meant to include executable code (function or method bodies) only type declarations. Lets organize this better. </p>
+<p>Also all  of the code is being compiled all at once. One advantage of c++ is to allow smaller units of compilation that can be linked together. </p>
+<p>Break the <span class="code">person.h</span> file into two files: <span class="code">person.h</span> and <span class="code">person.cpp</span> and split up the contents as shown. (Notice the new syntax: <span class="code">Person::Person(){...} </span>and <span class="code">Person::printOn(){...}</span>)</p>
+<p>&nbsp;</p>
+<pre>
+//file: person.h
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Person {
+private:
+  string name;
+  string email_address;
+  string phone_number;
+public:
+  Person(string aName, string anEmailAddress, string aPhoneNumber);
+  void printOn(ostream & out);
+};
+</pre>
+<pre>
+//file person.cpp
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include "person.h"
+using namespace std;
+
+  Person::Person(string aName, string anEmailAddress, string aPhoneNumber){
+    name = aName;
+    email_address = anEmailAddress;
+    phone_number = aPhoneNumber;
+  }
+  void Person::printOn(ostream & out){
+    out << name
+        << "  email: "
+        << email_address
+        << "  phone: "
+        << phone_number;
+  }
+</pre>
+<p>Erase, or remove, all files except the <span class="code">main.cpp</span>, <span class="code">person.h</span>, and <span class="code">person.cpp</span>.</p>
+<p>This time compile the <span class="code">person.cpp</span> file and see what happens:</p>
+<p class="code">g++ -g -Wall person.cpp</p>
+<p><img src="images/05PersonCPP.png" width="968" height="164"></p>
+<p>Notice no new file is created and there is some complaint about an undefined reference to &quot;main&quot;, yet if you compile main.cpp</p>
+<p class="code">g++ -g -Wall main.cpp</p>
+<p class="code"><img src="images/06MainCPP.png" width="949" height="325"></p>
+<p>Notice again no additional file gets created and there are some complaints about undefined references.</p>
+<p>This time compile both source files as follows:</p>
+<p class="code">g++ -g -Wall person.cpp main.cpp</p>
+<p class="code"><img src="images/07MultiSource.png" width="847" height="164"></p>
+<p>Notice this time an <span class="code">a.out</span> file is created and when executed the program runs (<span class="code">a.out</span> is created by default if you don't specify an executable with the -o option).</p>
+<p>C++ compiles programs in two stages first it compiles the .cpp files into .o object files and then it links the .o object files into an executable  file. We can see this by doing these steps individually.</p>
+<p>First again delete all the files except the <span class="code">main.cpp</span>, <span class="code">person.h</span>, and <span class="code">person.cpp</span>.</p>
+<p>Then first <span class="black-bold">just</span> compile the <span class="code">person.cpp</span> using the -c option (for compile only):</p>
+<p class="code">g++ -g -Wall -c person.cpp </p>
+<p>Notice it generates a <span class="code">person.o</span> object file</p>
+<p>Next only compile the <span class="code">main.cpp</span> file:</p>
+<p class="code">g++ -g -Wall -c main.cpp</p>
+<p>Notice it generates a <span class="code">main.o</span> object file.</p>
+<p>Now link the object files by executing</p>
+<p class="code">g++ main.o person.o</p>
+<p>This time it links the object files and generates the <span class="code">a.out</span> executable that can be run. Here is a screen capture of the above:</p>
+<p><img src="images/08MultiSession.png"></p>
+<p>Later in the course we will look at <span class="black-bold">make</span> files to assist with compiling and linking multiple source files.</p>
+<p><span class="red">When you have finished Problems 1,2 and 3 demonstrate your work to a tutorial TA to get credit for the tutorial.</span></p>
+<hr>
+<p class="segment-header">Optional)</p>
+<p>Based on what you did in the previous problem, add a C++ class to represent a <span class="code">class Pet</span> with two string properties: <span class="code">name</span> and <span class="code">type</span> (intended to be &quot;cat&quot;, &quot;dog&quot; etc.). Put your code in a <span class="code">pet.h</span> and <span class="code">pet.cpp</span> file.</p>
+<p>Modify the <span class="code">main.cpp</span> file to not only create and print two <span class="code">Person</span> objects but also two <span class="code">Pet</span> objects.</p>
+<p>Compile and run the code and verify that it works. (Again don't worry about the constant to char * warnings at this point.)</p>
+<p class="red">&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>

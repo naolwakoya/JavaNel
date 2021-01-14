@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>2404</title>
+<style type="text/css">
+body {
+	font-family: Arial, Helvetica, sans-serif;	
+	margin-left:80px;
+	margin-right:80px;
+}
+h1, h2, h3 {
+	font-weight: bold;
+	color: blue;
+}
+p {
+		font-size: large;
+}
+
+.red {
+	color: #F00;
+}
+.bold {
+	font-weight: bold;
+}
+.requirement {
+	font-weight: bold;
+	background-color: #6AF37A;
+}
+.requirement_danger {
+	font-weight: bold;
+	background-color: #F47272
+}
+.requirement_warning {
+	font-weight: bold;
+	background-color: #F6CA54
+}
+.code {
+	font-family: "Courier New", Courier, monospace;
+}
+.requirement_warning1 {	font-weight: bold;
+	background-color: #F7BD36
+}
+</style>
+</head>
+<body>
+<h1>Comp 2404 Fall 2019 Assignment 2</h1>
+<h1 class="red">Due Wed Oct 28 by 10:00pm in Culearn.</h1>
+<h1></h1>
+<p class="red">Assignment Submissions Instructions: Assignments must be submitted via <a
+href="http://www.carleton.ca/culearn">culearn</a> by the due date and time. Late assignments will not be accepted. See the Development Process Requirements below for what exactly to submit and how.</p>
+<p>You may work on assignments in pairs if you want, in which case only one copy should be submitted with both your names on  the files and in the ReadMe.txt file. If neither submits (because, for example, they thought the other one would) both get a mark of 0.</p>
+<hr />
+<h2 class="red">Revisions:</h2>
+<p class="red" >Rev 2) Assignment due date has been changed to Oct 28 by 10:00 in culearn.</p>
+<p class="red" >Also the we are now required to support two versions of the delete command: one with the old -s flag referring to track (but listed as DEPRECATED) and a newer version that uses the -t flag (see the new help <span class="code">Rev2.txt</span> file).</p>
+<p class="red" >Rev 1) With the refactoring of the data model where playlist's now refer to tracks rather than songs (based on ttile and composer) some of the references to song_id should be changed to track_id. Specifically the following changes were made:</p>
+<p class="red" >1) Some changes to the help.txt file describing the language now use <span class="code">help Rev1.txt</span><br>
+  2) Some comments were added to insert script. Now use <span class="code">insert_beatles_tracks_rev2.txt</span><br>
+  <br>
+  3) Clarifications to FR2.12 and 2.14
+</p>
+<hr />
+<h2>Categorization of Assignment Requirements</h2>
+<p>All assignments in this course will be based on itemized and categorized requirements. There will be four categories of requirements: Process Requirements, Functional Requirements, System Requirements, and Domain Requirements.</p>
+<p><span class="bold">Process requirements</span> (aka Software Engineering Requirements, Development Process Requirements, Good Practice Requirements) are requirements imposed by the software development process that is  being followed by the developers. <span class="red">Here they  include the requirements on how to submit your assignments successfully and have them marked</span>. They do not have anything to do with the specific application being developed  but rather pertain to the development process that is being used. They include the requirements that reflect how your assignment will be tested and marked. <span class="red">In assignments you will not get marks for meeting process requirements, instead you lose marks if they are not met -in some cases ALL of your marks</span>.</p>
+<p><span class="bold">Functional</span>, <span class="bold">System</span>, and <span class="bold">Domain</span> requirements all pertain to the actual application being developed. Collectively these are referred to as the <span class="bold">Design Requirements</span>. In assignments you will get marks for those design requirements that are met. So the number of these requirements determine what the assignment will be marked out of.</p>
+<p><span class="bold">Functional Requirements</span> (aka User Requirements) pertain to what the user wants to do with the app and how it is to be operated. If a functional requirement is not met one would expect a user or client to notice that. The wording of functional requirements should make sense to the intended user or client. They should not contain references to &quot;objects&quot; in the object-oriented programming sense.</p>
+<p><span class="bold">System Requirements</span> (aka Constraints) are requirements imposed on the developer to make the development profitable (or evolvable, or resuable, ...). If a system requirement is not met the user, or client, of the app would likely not be aware of that. For example, the user of your app is not aware of whether you used objects to implement it or not. System requirements can make reference to &quot;objects&quot; in the object-oriented programming sense because the developers understand that.</p>
+<p><span class="bold">Domain Requirements</span> (aka Legal Requirements) are requirements imposed by the domain, or demographic, in which your app is intended to operate. For example, if you are making a PG13 movie about  object-oriented development then the requirements that must be met for a movie to be considered PG13 are domain requirements. (Treating people as objects might be considered inappropriate for a young audience; treating objects as people will likey garner an R-rating.)</p>
+<p>It will be an ongoing challenge in the course to fit requirements into one of the four categories or determine if there is an important missing category. In real life there are often many more requirement catagories.</p>
+<p>&nbsp;</p>
+<hr width="100%">
+<p><span class="badge-danger">Marking:</span> This assignment 
+  is based on 29 design requirements numbered <span class="badge-success"><span class="requirement">DR1.1</span></span>...<span class="badge-success"><span class="requirement">FR1.15</span></span> for a total of <span class="red">58</span> marks. </p>
+<p>Marks are awarded, or deducted, based on formalized requirements as follows:</p>
+<table border="1">
+  <tr>
+    <th width="83">Req Type</th>
+    <th width="716">Assignment Grading</th>
+  </tr>
+  <tr>
+    <td><span class="requirement_danger">R0.x</span></td>
+    <td><p><span class="requirement_danger">Critical Submission and Intent Requirements (Process Requirements).</span> Assignment gets 0 if <span class="bold">any</span> critical submission<br>
+      requirement (shown in red) is not met.<br>
+    </p></td>
+  </tr>
+  <tr>
+    <td><span class="requirement_warning">R0.x</span></td>
+    <td><p><span class="requirement_warning">Good Practice Requirements (Process Requirements).</span> You lose 2 marks for each good practice <br>
+      requirement (shown in amber) not met.<br>
+    </p></td>
+  </tr>
+  <tr>
+    <td><span class="requirement">Rx.x</span></td>
+    <td><p><span class="requirement">Design Requirements.</span> You earn 2 marks for each design requirement (green) satisfied and well implemented; 1 mark if it's partly met or met but not well implemented; and 0 if it's not met or attempted.</p></td>
+  </tr>
+   <tr>
+    <td>Rx.x</td>
+    <td><p><span class="bold">Out of Scope Requirements.</span> Requirements that are not coloured pertain to the project as a whole be are not being evaluted in this scope (assignment).</p></td>
+  </tr>
+</table>
+<h2 class="red">&nbsp;</h2>
+<h2>Development Process Requirements</h2>
+<p>The following requirements will pertain to all your assignments regardless of what your application is supposed to do (i.e. regardless of the design requirements). These requirements are intended to ensure that your code is readable and maintainable by other programmers (or markable by TA's in our case), robust (it does not crash from bad pointer references or memory allocation problems), and follows good object-oriented programming practice. You will lose 2 marks from your total assignment mark for each of the following requirements that is not satisfied.<span class="red"> However if you do not satisfy requirement PR0.1, PR0.2 or PR0.3 you will get zero for the assignment mark.</span></p>
+<p><span class="badge badge-danger"><span class="requirement_danger">PR0.1</span></span> <span class="red">[Assignment mark = 0 if not met]  UNIQUENESS REQUIREMENT. The solution and code you submit MUST be unique. That is, it cannot be a copy of, or be too similar to, someone else's assignment, or  code found elsewhere. A mark of 0 will be assigned to any assignment that is judged by the instructors or the TA's not to be unique.</span></p>
+<p> You are, however, free to use any code posted on our course web (e.g. notes, sample code, tutorial demo code and answers) as part of you assignment solutions. </p>
+<p><span class="badge badge-danger"><span class="requirement_danger">PR0.2</span></span> <span class="red">[Assignment mark = 0 if not met] CODE SUBMISSION REQUIRMENTS: For the purposes of assignments your code and supporting documents must be submitted to culearn and comply with the following.</span></p>
+<p class="red">1) You should submit C++ source code file and any supporting script files, documentation files required and, when appropriate the associated make file to assist the compilation. Your name and student number should be at the top of each file. There should always be a ReadMe.txt file with your assignment. If you are working with a partner, both names and student numbers must appear on the files and only submit one copy of the assignment to culearn.</p>
+<p class="red">2) COMPRESSION If your assignment files are compressed we will accept only .tar, .tar.gz, or .zip format compatible with one of the following three linux commands for extraction:</p>
+<p class="red">tar -xvf filename.tar<br>
+  tar -xvf filename.tar.gz<br>
+  unzip filename.zip</p>
+<p class="red"> <br>
+  3)ReadMe.txt: Your assignment must be accompanied by a ReadMe.txt file in which the following should appear:</p>
+<p class="red">-Which extraction command should be used to uncompress your assignment files.<br>
+  -Which g++ compiler command should be executed to compile your code.<br>
+  -Instructions on what script, or scripts to run  to demonstrate your testing.</p>
+<p class="red">4) In general you should provide a testing script, or main program that runs appropriate test cases to demonstrate that the design requirements are being met. (Not all requirements can be demonstrated like that, but functional requirements usually can be -especially if we are building command line applications.)</p>
+<p><span class="badge badge-danger"><span class="requirement_danger">PR0.3</span></span> <span class="red"> [Assignment mark = 0 if not met] CODE COMPILATION and TESTING: </span></p>
+<p class="red">The TA must be able to compile your code using the g++ compiler installed in our 2401-F19.ova virtual box linux image. (A current gcc installation should be compatible with that, but you should check.). The TA will run the g++ command specified in your ReadMe.txt file and when compiling is complete run your exectuable to begin verifying the assignment requirements. If your code cannot be compiled as described the assignment mark will be zero. (The TA's will not debug your code in an effort to get it to compile.)</p>
+<p class="red">&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.4</span></span> CODE ORGANIZATION: Your code files should contain only one .cpp file containing the substring &quot;main&quot; in the title and that file should have the<span class="code"> int main()</span> entry point function for your code. Your object-oriented classes should each be represented in two files <span class="code">classname.h</span> and <span class="code">classname.cpp</span>. The .h header files should contain only type declarations and not executable code (method bodies). </p>
+<p>&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.5</span></span> VARIABLE AND FUNCTION NAMES: All of your variables, methods and classes should have meaningful names that reflect their purpose. Do not follow the convention in math courses where they say things like: &quot;let x be the number of customers and let y be the number of products...&quot;. Instead call your variables <span class="code">numberOfCustomers</span> or <span class="code">numberOfProducts</span>. Your program should not have any variables called &quot;x&quot; unless there is a good reason for them to be called &quot;x&quot;. (One exception: it's OK to call simple for-loop counters i,j and k etc. when the context is clear and VERY localized.)</p>
+<p>&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.6</span></span> MEANINGFUL CONSTANT NAMES: Constant values should have meaningful names and not just be represented as numbers or strings in expressions. For example don't say:<br>
+  <span class="code">cin.getline(input, 80);</span><br>
+  rather say:<br>
+  <span class="code">cin.getline(input, MAX_INPUT_LENGTH);</span></p>
+<p>&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.7</span></span> VARIABLES: All instance variables in your classes should be <span class="code">private</span>, unless a specific design requirements asks for them to be <span class="code">public</span> (which is unlikely). It is good programming practice to design objects that provide services to others through their <span class="code">public</span> methods. How they store their variables is their own private business. C or C++ unbounded arrays should not be used as public data structures. They should be encapsulated in a class which takes care of their length or number of elements. Also methods used soley by a class for its own housekeeping, and which are not considered part of the public inteface, should be in the <span class="code">private</span> section of a class.</p>
+<p>Your code should not be coupled through global variables. That is, objects should not communicate through the existance of global variables. Instead pass appropriate objects through constructor parameters.</p>
+<p>&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.8</span></span> ROBUSTNESS REQUIREMENTS: Your program should not crash when the TA is marking it because of a bad pointer dereferences, out of bounds error memory access, or memory leaks or double deletions. <span class="red">We get especially annoyed by out of bounds  &quot;off by one&quot; errors! </span>Your code should not have any memory leaks or double deletions. Moreover the heap memory should be empty when your procedure <span class="courier">main() </span>returns. That is, all heap objects should be properly deleted before the program exits. </p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.9</span></span> COMMENTING REQUIREMENTS: Comments in your code must coincide with what the code actually does. It is a  common bug for people to modify code and forget to modify the comments and so you end up with comments that say one thing and code that actually does another. Don't use comments to clarify poor variable or method names -instead choose good variable names and method names that makes the code more &quot;self-commenting&quot;. </p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.10</span></span> OUTPUT LABELING REQUIREMENTS: Your programs output must have sufficient comments or remarks so that the output can understood. Don't have your program just write out a bunch of integers with no indication of what they mean or what the test they supposedly demonstrate.<span class="red"> The TA's should be able to read and understand your output WITHOUT having to look at your code to see what the output means.</span> It is a good idea to refer specifically to the numbered design requirements in your output to help indicate which requirement you are demonstrating.</p>
+<p>&nbsp;</p>
+<p class="red">VERY IMPORTANT: </p>
+<p class="red">Requirements tend to make sense to the person who wrote them  because that person knows what they were trying to say. You don't know what they were trying to say, only what they actually did say. So you need to ask lots of questions when things are not clear. A picture is worth a thousand words and a requirement fix is worth a thousand programing fixes.</p>
+<p class="red">Any sample code fragments provided with assignments  might have bugs (although none are  put there intentionally). It is part of your job to identify errors in the code and in the requirements and seek clarification. </p>
+<hr />
+<h2>Assignment #2 Design Requirements </h2>
+<h2>Background  </h2>
+
+<p>This development project pertains to the scenario detailed in the <span class="bold">Background</span> section of Assignment #1.</p>
+<p>While the you were creating the command line interface  in Assignment #1 the client developed an data model to represent the user and song data that the application is meant to manage. </p>
+<p>The client  initially provided the following ER data model. ER, or Entity-Relationship diagrams are very popular way to model information (data not objects).</p>
+<p><img src="images/ER model -initial.png" width="720" height="540" alt=""/></p>
+<p>&nbsp;</p>
+<p>Here is a legend for the ER model symbols. The main feature of ER models are entities, relationships and keys.</p>
+<p>&nbsp;</p>
+<p><img src="images/01ERLegend.png" width="679" height="469" alt=""/></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>During the requirements negotiation it was discovered that the above data model might have an issue. Specically that the tracks relationship represents a specific recording of a song and that is most likely what a user will want on their playlist and not the published (lyric and music) version of a song. The data model was revised to have tracks be an entity rather than a relationship. Here is the revised data model agreed to by the client.</p>
+<p>&nbsp;</p>
+<p><img src="images/ER model -refactored.png" width="720" height="540" alt=""/></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Based on the agreed upon ER model the we have come up with the following UML class diagram that we will implement in memory. Note that a UML diagram is about objects and classes whereas an ER diagram is only about information. You will however find many similarities (ER models were used as the basis for inventing the UML notation).</p>
+<p>&nbsp;</p>
+<p><img src="images/A2UMLclass_diagram.png" width="960" height="720"></p>
+<p>&nbsp;</p>
+<p>Also the application should manage the following in-memory collections.</p>
+<p><img src="images/A2UMLcollections_diagram.png" width="960" height="720"></p>
+<p>&nbsp;</p>
+<p>The UML diagrams provides the names of the intended classes however the collections could be classes or they might be just simple containers like:</p>
+<p><span class="code">vector&lt;Song&gt; songs;<br>
+vector&lt;Recording&gt; recordings;<br>
+vector&lt;Track&gt; tracks;<br>
+vector&lt;User&gt; users;</span><br>
+</p>
+<p>Whether you use classes or  existing containers depends on whether you need particular methods associated with the collections. Note the UML class diagrams specify some properties that the application should support however you are free to add whatever others you need. Tracks include an mp3 file name attribute since the application will eventually be used to play mp3 files however no requirements in this assignment scope makes use of it. </p>
+<p>The UML diagrams do not currently specify  <span class="bold">methods</span>. You will need to design the methods you feel are appropriate. Google UML class diagrams to figure out what they are about.</p>
+<p>An independent collection of playlists is not being specified and these are intended to be a property of <span class="code">User</span> objects.</p>
+<p>All objects of type <span class="code">Song</span>, <span class="code">Recording</span>, <span class="code">Track</span>, <span class="code">User</span> or <span class="code">Playlist</span> shall be heap-based (dynamic) objects and shall be represented only once in memory. All associations represented in the UML class diagram shall be implemented with references, pointers, or by placing objects in appropriate collections.</p>
+<p>The application is required to maintain <span class="bold">Referential Integrity</span> at all times. Referential Integrity requires that at no time can data refer to a non existing object. For example, if a song is removed from the songs collection then no playlist or track should refer to that song since it no longer exists.</p>
+<p>&nbsp;</p>
+<h2>Scope  </h2>
+
+<p>This development phase (assignment) has the following scope.</p>
+<p>For this assignment you will implement an in-memory version of the data model specified above and then fully implement the commands prototyped in assignment #1 to have them operate on the in-memory data model. When your commands are executed the appropriate data objects of type <span class="code">Song</span>, <span class="code">Recording</span>, <span class="code">Track</span>, <span class="code">User</span>, or <span class="code">Playlist</span> should be created and the appropriate relationships establised by adding the object to the proper container or establishing the reference or pointer links that are needed. The &quot;display&quot; commands will now need to actually show what is currently in the data model.</p>
+<p>The application data will be initialized with the insert script provided with assignment #1 and also included with this assignment. </p>
+<p>The following anticipated requirements are being left out of this phase (assignment): searching for songs and recordings, authentication of users. There are also no persistence requirements in this assignment. That is, your data changes, as a result of your user commands, do not have to be saved to disk for the next time the application launches.</p>
+<p>The main C++ programming capabilities you will likely need for the assignment are:</p>
+<p>Working with containers (e.g. vector&lt;&gt; or other containers you choose to use or build).</p>
+<p>Designing appropriate methods for classes and adding needed attributes.</p>
+<p>Working with dynamic memory  using <span class="code">new</span> and <span class="courier"><span class="code">delete</span></span>.</p>
+<p>Implementing proper constructors, destructors and assignment operators as needed.</p>
+<p>Overloading the &lt;&lt; output stream operator for the data classes you create.</p>
+<hr />
+<h2>Domain Requirements</h2>
+<p><br />
+	<span class="requirement">DR2.1</span> Any song, CD, or Album titles or any band names should always be displayed for the user in <span class="bold">title case</span>. That is, the first letter of each word should be capitalized and any title or name that starts with the word &quot;The&quot; should be displayed with  the &quot;The&quot; at the end. (e.g. The Beatles should be displayed as Beatles, The).  Any application commands that display such strings for the user must display them in title case.</p>
+<p><span class="bold">DR1.2)</span> Any searches for song titles or recording titles should ignore both case and punctuation. For example &quot;take the A train&quot; should match &quot;Take The 'A' Train&quot;. (We are not implementing search in this assignment so this should &quot;automatically&quot; be satisfied.)</p>
+<p><span class="bold">DR1.3)</span> Any searches for song titles or recording titles should accept placeholder characters repesented by a &quot;*&quot;. From example &quot;* Ipanema&quot; would match &quot;The Girl From Ipanema&quot;. (We are not implementing search in this assignment so this should &quot;automatically&quot; be satisfied.)</p>
+<hr />
+<h2>System Requirements (Constraints)</h2>
+<p><span class="requirement">SR2.1</span> The application should be written in C++ and have a command line interface.</p>
+<p><span class="requirement">SR2.2</span> The application code should be fully object-oriented. That is, except for the  <span class="code">int main(){}</span> entry point function and maybe some initialization helper functions, all  funtionality should be through <span class="bold">methods</span> of some <span class="code">class</span> (either <span class="code">static</span> or instance methods).</p>
+<p><span class="requirement">SR2.3</span> The application should decouple data objects from those used to implement the user interface or application control. Specifically the objects of type <span class="code">Song</span>, <span class="code">Recording</span>, <span class="code">Track</span>, <span class="code">User</span>, or <span class="code">Playlist</span> should have NO awareness of the user interface or application control objects. </p>
+<p><span class="requirement" >SR2.4</span> Data objects of type <span class="code">Song</span>, <span class="code">Recording</span>, <span class="code">Track</span>, <span class="code">User</span> and <span class="code">Playlist</span> should be represented as a single instance and never copied. For example, if a <span class="code">Track</span> object appears on several <span class="code">Playlist</span> instances, the playlists should refer to a single <span class="code">Track</span> instance and not have separate copies of the <span class="code">Track</span> object. Playlists, for example, could &quot;point&quot; to <span class="code">Track</span> objects or could contain state information, like id or title, that could be used to locate the actual <span class="code">Track</span> object. </p>
+<p><span class="requirement">SR2.5</span> Classes <span class="code">Song</span>, <span class="code">Recording</span>, <span class="code">Track</span>, <span class="code">User</span>, or <span class="code">Playlist</span> should be implemented to represent those described in the UML data model.</p>
+<p><span class="requirement">SR2.6</span> Objects of type <span class="courier"><span class="code">Song</span></span>, <span class="code">Recording</span>, <span class="code">Track</span>, <span class="courier"><span class="code">User</span></span>, or <span class="courier"><span class="code">Playlist</span></span> should be allocated on the heap (with <span class="code">new</span>) and properly deallocated (with <span class="code">delete</span>) when no longer needed. There should be no memory leaks or double deletions involving your heap storage.</p>
+<p><span class="requirement">SR2.7</span> Objects of type <span class="code">Song</span>, <span class="code">Recording</span>, <span class="code">Track</span>, <span class="code">User</span>, or <span class="code">Playlist</span> should each implement an overloaded <span class="code">&lt;&lt;</span> operator so they can be output to <span class="code">cout</span> using <span class="code">cout &lt;&lt; aSong;</span> syntax. The output should respect the title case requirement DR2.1.</p>
+<p><span class="requirement">SR2.8</span> The application should maintain the in-memory collections for songs, recordings, tracks, and users. These could be implemented as classes specified in the UML class diagram or by using simple c++ containers, for example:<br>
+  <span class="code">vector&lt;Song&gt; songs;<br>
+vector&lt;Recordings&gt; recordings;<br>
+vector&lt;Tracks&gt; tracks;<br>
+vector&lt;User&gt; users;</span></p>
+<p><span class="requirement">SR2.9</span> Playlists shall be implemented as a property of <span class="code">User</span> objects and not as a separate data collection. For example <span class="code">User</span> objects might maintain their own private collection <span class="code">vector&lt;Playlist&gt;</span> property. Playlists shall  not be accessible unless a user is specified.</p>
+<p></p>
+<p><span class="requirement">SR2.10</span> All associations on the UML class diagram provided by the architects shall be implemented with pointers, references or by placing objects in an approriate container.</p>
+<p><span class="requirement">SR2.11</span> The implementation shall comply with cardinalities (multiplicities) specified in the UML class diagrams.</p>
+<p><span class="requirement">SR2.12</span> The application shall maintain referential integrity at all times. Referential integrity requires that at no time can the data refer to an object that does not exist. For example if a song is removed from the application by removing it from the <span class="code">Songs</span> collection it cannot be referred to by a <span class="code">Playlist</span> or <span class="code">Track</span> object.</p>
+<p><span class="requirement">SR2.13</span> Referential Integrity conflicts shall be resolved using a &quot;Delete With Extreme Prejudice&quot; policy. This policy requires that any references to a non existing object should be deleted. For example, if a song is removed from the Songs collection then any references to it should be deleted by, for example, removing playlist items or removing <span class="code">Track</span> objects from the tracks collection.</p>
+<p>&nbsp;</p>
+<hr />
+<h2>Functional Requirements (User Requirements)</h2>
+
+<p class="red">For this assignment the commands all have to work and result in the correct in-memory data. The &quot;show&quot; or &quot;display&quot; commands must show the actual data the user is requesting. Many of the requirements are repeated from assignment #1 might be slightly modified to refer to the actual data model.</p>
+<p class="red">The TA's will be testing your interface but will do so only after running the data insert script and the script you are required to provide (see the last requirement). Without correct execution of these scripts the requirements below will be deemed not to have been met.</p>
+<p class="red">&nbsp;</p>
+<p><span class="requirement">FR2.1</span> REPL Loop: When the application launches it should present the user with a command line terminal and prompt ready to receive commands. When a command executes the results should be displayed for the user followed by another prompt  and be ready to receive the next command. (like the bash terminal in linux). All the interactive dot commands described in Assignment 1 should be fully implemented and operational.</p>
+<p><span class="requirement">FR2.2</span> The application should have a <span class="code">.help</span> command to show, or remind, the user what the available commands are. The .help command should provide information to the user consistent with that in the <span class="code"> <s>help.txt</s></span> file [Rev 1 <span class="code">help Rev1.txt</span>]. </p>
+<p><span class="requirement">FR2.3</span> We should be able to create and initialize the in-memory data model by reading the data insert script included with this assignment. The application should not crash if dot commands (intended for the interactive command line interface) are included in a script read in with the <span class="code">.read</span> command. Dot commands that appear in scripts should be ignored when the script is read.</p>
+<p><span class="requirement">FR2.4</span> The application should fully implement all the commands described in the <span class="code">help.txt</span> file included with assignment 1 (and again included with this assignment). The non-dot commands should now correctly modify the contents of the in-memory data model.</p>
+<p><span class="requirement">FR2.5</span> The user should be able to verify that the data model has correctly been modified by executing one of the <span class="code">.show</span> commands to display the current state of the data model. </p>
+<p><span class="requirement">FR2.6</span> The application should still support the rules about multi-word arguments, blanks, and the order of argument flags as described in requirements FR1.6, FR1.7, FR1.8 from assignment 1.</p>
+<p><span class="requirement">FR2.7</span> All the <span class="code">.log</span> commands described in Assignment 1 should be implemented and be operational.</p>
+<p><span class="requirement">FR2.8</span> The application should correcty accept and parse the <span class="code">add</span> commands described in the <span class="code">.help.txt</span> file and these commands should correctly modify the in-memory data model. After the data model has been intialized using the data insertion scirpt the user should be able to add additional contents interactively using the <span class="code">add</span> commands.</p>
+<p><span class="requirement">FR2.9</span> The application should support the comment command // described in the <span class="code">help.txt</span> file and it should correctly write the comments to the log and, if saved, the log file of the session.<br />
+</p>
+<p><span class="requirement">FR2.10</span> Implement the <span class="code">show playlists -u user_id</span> command to display what playlists a particular user owns. Using this command the user should be able to view the current Playlist objects that a user owns.</p>
+<p><span class="requirement">FR2.11</span> Implement the <span class="code">show songs -u user_id -p playlist_name</span> command to display what songs appear on a particular playlist of a particular user. Using this command the user should be able to view the current contents of a <span class="code">user</span>'s playlist.</p>
+<p><span class="requirement">FR2.12</span> Implement the <span class="code">add -l user_id playlist_name <s>song_id</s> track_id</span> command should allow establishing all the relationship that a <s>song</s> track appears on a particular user's playlist. For example: associating tracks with  particular users playlists.</p>
+<p><span class="requirement">FR2.13</span>  The application should implement the <span class="code">delete</span> commands to delete recordings, songs, tracks, users, playlists or songs from playlists. The application should preserve referential integrity if items are deleted. For example if a song is deleted from the application then it should also be deleted from any playlists it appears on or any tracks that refer to it etc.</p>
+<p><span class="requirement">FR2.14</span> The application should implement the<span class="code"> -Global</span> attribute of the <span class="code">delete -Global -s <s>song_id</s> track_id -p playlist_name -u user_name</span> to allow the deletion of tracks from a playlist to only affect that playlist or optionally to permanently delete the track from the application altogether (including from other playlists on which might appear). The application should preserve referential integrity if items are deleted.</p>
+<p><span class="requirement">FR2.15</span> Your assignment submission should include a script that we can <span class="code">.read</span> after reading the data insert script. The commands and comments in your script should illustrate the correct operation of FR2.10, FR2.11, FR2.12, FR2.13 and FR2.14. That is, make up a scenario that involves those requirements and write a script that will execute and document the scenario. <span class="red">The TA's might also provide scripts that they want you to run with your code.</span></p>
+<p>&nbsp;</p>
+<hr />
+</body>
+</html>

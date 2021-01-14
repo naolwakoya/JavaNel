@@ -1,0 +1,15 @@
+nortel 55.0 
+nortel 54.0 
+nortel 53.0 
+nortel 15.0 
+xerox 35.0 
+newbridge 53.0 
+nortel 35.0 
+entu 43.0 
+entu 15.0 
+entu 65.0 
+nortel 75.0 
+entu 85.0 
+entu 95.0 
+nortel 30.0 
+entu 100.0 

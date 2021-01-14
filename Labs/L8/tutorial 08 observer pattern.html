@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>2404</title>
+<style>
+body {
+	font-family: arial;
+	margin-left: 80px;
+}
+p {
+	font-size:24px;
+}
+pre {
+	font-size:24px;
+	font-family: 'Courier New';
+}
+hr {
+	width: 100%;
+	height: 2px;
+	
+	margin-top:10px;
+	margin-bottom:10px
+}
+.header {
+	text-align: center;
+	font-weight: bold;
+	font-size: 40px;
+	
+	margin-top:0px;
+	margin-bottom:0px;
+	
+	color: rgb(153, 0, 0);
+}
+.subheader {
+	color: #000099;
+	
+	margin-bottom:100px;
+}
+.segment-header {
+	color: rgb(0, 0, 153);
+	font-size: 30px;
+}
+.black-bold {
+	color: rgb(0,0,0);
+	font-weight: bold;
+}
+.glossary-term {
+	font-weight: 700;
+	color: #000099;
+}
+.code {
+	font-family: 'Courier New';
+}
+.comment {
+	color:rgb(0, 128, 0);
+}
+ul li {
+	margin-bottom: 5px;
+	font-size:24px;
+}.red {
+	color: #F00;
+}
+</style>
+</head>
+
+<body class="arial">
+<h1 class="header">COMP 2404 Fall 2019 Tutorial 8</h1>
+<h1 class="header subheader">Buy Low, Sell High</h1>
+<hr />
+<h2 class="segment-header">Purpose</h2>
+<p>The purpose of this tutorial is 
+to give you practice assembling code whose operation is based on one of the Gamma et al. <span class="black-bold">Observer Pattern</span> which is described in the Design Patterns section of the course notes. We are going to simulate a stock portfolio with transaction objects that &quot;fire&quot; automatically when stocks hit an attractive price. They will &quot;fire&quot; automatically because they are observers of the stocks consistent with that role in the <span class="black-bold">Observer Pattern</span>.</p>
+<p><span class="red">This tutorial is meant to be started as homework. You will not be able to finish if you only start working on it at your tutorial session.</span></p>
+<p>By the way the templated arraylist code provided with this tutorial is based on the Gamma et al Iterator Pattern and shows you how to write your own pointer dereference operators in c++. </p>
+<h2 class="segment-header">&nbsp;</h2>
+<h2 class="segment-header">Demo Code</h2>
+<p class="red">To do this exercise you will have to study the demo code carefully as well as the code that implements the Gamma et al Observer Pattern. There is not much code to write but you will have to study where it is needed.</p>
+<p>Open and compile the demo code. It will require the <span class="code">std=c++11 </span>option as follows:</p>
+<p class="code">g++ -g -Wall -std=c++11 main.cpp</p>
+<p>The demo code creates some stocks, places them in a portfolio and then creates some buy and sell action objects that are supposed to execute when the stocks hit their &quot;action price&quot;. Run the code. It will read changes in stock prices from the <span class="courier"><span class="code">stockdata.txt</span></span> simulation file. As this is being read the buy and sell actions are supposed to exectute, but of course don't, because that has not been implemented yet. </p>
+<p>The demo code also writes the opening and closing balance of the portfolio and the transactions that took place to a <span class="courier"><span class="code">simulationResults.txt</span></span> file that should appear in the project's home directory. Here is the console output and the contents of the <span class="courier"><span class="code">simulationResults.txt</span></span> file as produced by the demo code.</p>
+<p class="courier"><img src="images/demo1.jpg" alt="demo1" /></p>
+<p class="courier">&nbsp;</p>
+<p>Here is the contents of the <span class="courier"><span class="code">simulationResults.txt</span></span> data file after the demo code is run:<br>
+<pre>
+Portfolio#100  acct#1000  $10000
+entu  0 $43
+nortel  0 $44
+newbridge  0 $47
+xerox  0 $49
+portfolio value $10000
+
+nortel  $55
+nortel  $54
+nortel  $53
+nortel  $15
+xerox  $35
+newbridge  $53
+nortel  $35
+entu  $43
+entu  $15
+entu  $65
+nortel  $75
+entu  $85
+entu  $95
+nortel  $30
+entu  $100
+
+Portfolio#100  acct#1000  $10000
+entu  0 $100
+nortel  0 $30
+newbridge  0 $53
+xerox  0 $35
+portfolio value $10000
+</pre>
+</p>
+<hr>
+<h2 class="segment-header">&nbsp;</h2>
+<h2 class="segment-header">Problem 1</h2>
+<p>As you can see in the demo code the buy and sell transactions did not execute. We want to set them up as observers of stocks that would execute when the stock price becomes compatible with their action price. So we want to set up a subject-observer relationship between stock objects and action objects. Study the code provided to see how it works and then build that behaviour based on the observer pattern. A <span class="courier"><span class="code">Subject</span></span> and <span class="courier"><span class="code">Observer</span></span> superclass is provided for you which should not need to be modified. Here is summary of what you will have to do to get this to work. <span class="red">This tutorial requires that you carefully study the code provided to see how it works then make the changes you want to</span>.</p>
+<p>Here is a summary of the things you will need to do.</p>
+<p>1) The <span class="courier"><span class="code">Stock</span></span> class needs to be a subject in the subject-observer pattern. That is, it will  have to inherit from the <span class="courier"><span class="code">Subject</span></span> class</p>
+<p>2) The <span class="courier"><span class="code">Action</span></span> class and its subclasses (<span class="courier"><span class="code">BuyAction</span></span> and <span class="courier"><span class="code">SellAction</span></span>) need to be observers. That is, inherit from the <span class="courier"><span class="code">Observer</span></span> class.</p>
+<p>3) The action objects will have to <span class="code">attach()</span> to their subject and later <span class="courier"><span class="code">dettach()</span></span> once they have been executed. The action objects should attach to their subject when they are first created (i.e. in their constructors).</p>
+<p>4) Whenever a stock's price changes it will have to call it's superclass <span class="courier"><span class="code">Subject</span></span>'s <span class="courier"><span class="code">notify()</span></span> method so that all the observers will have a chance to react to the change in the stock's price.</p>
+<p>5) The action objects must implement the required <span class="courier"><span class="code">update()</span></span> method that is specified in the <span class="courier"><span class="code">Observer</span></span> class. This is the method where they will have a chance to react to the change in their subject's stock price.</p>
+<p>Note the following classes (files) are complete and should not require any changes: <span class="courier"><span class="code">Subject</span></span>, <span class="courier"><span class="code">Observer</span></span>, <span class="courier"><span class="code">ArrayList</span></span>, <span class="courier"><span class="code">Portfolio</span></span>, <span class="courier"><span class="code">main.cpp</span></span>. Code changes should only be required in the <span class="courier"><span class="code">stock.h</span></span> and<span class="courier"> <span class="code">action.h</span></span> files.</p>
+<p class="courier">&nbsp;</p>
+<p>After completing the exercise the console output and <span class="courier"><span class="code">simulationResults.txt</span></span> should look like this:</p>
+<p><img src="images/ex1.jpg" alt="ex1" /></p>
+<h2 class="blue">&nbsp;</h2>
+<p>Simulation results file contents:</p>
+
+<pre>
+Portfolio#100  acct#1000  $10000
+entu  0 $43
+nortel  0 $44
+newbridge  0 $47
+xerox  0 $49
+portfolio value $10000
+
+nortel  $55
+TRANSACTION: BUY 30 shares of nortel  30 $55 portfolio $9970
+nortel  $54
+nortel  $53
+nortel  $15
+TRANSACTION: BUY 40 shares of nortel  70 $15 portfolio $8740
+xerox  $35
+newbridge  $53
+TRANSACTION: BUY 30 shares of newbridge  30 $53 portfolio $8710
+nortel  $35
+entu  $43
+TRANSACTION: BUY 20 shares of entu  20 $43 portfolio $10080
+entu  $15
+TRANSACTION: BUY 20 shares of entu  40 $15 portfolio $9490
+entu  $65
+nortel  $75
+TRANSACTION: SELL 40 shares of nortel  30 $75 portfolio $14260
+entu  $85
+entu  $95
+nortel  $30
+entu  $100
+TRANSACTION: SELL 30 shares of entu  10 $100 portfolio $14280
+
+Portfolio#100  acct#1000  $10790
+entu  10 $100
+nortel  30 $30
+newbridge  30 $53
+xerox  0 $35
+portfolio value $14280</pre>
+<p class="red">&nbsp;</p>
+<p class="red">When you have completed the   exercise   demonstrate your code to one of the tutorial TA's to get credit for the tutorial.</p>
+<p>&nbsp;</p>
+<hr>
+<h2 class="blue">&nbsp;</h2>
+<h2 class="segment-header">Problem 2 (Optional)</h2>
+<p>Refactor this code into approriate .h and .cpp files and then write a <span class="code">makefile</span> to control the compilation. (If you do this send me a copy so I can post it for others.)</p>
+<h1 class="blue">&nbsp;</h1>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>2404</title>
+<style>
+body {
+	font-family: arial;
+	margin-left: 80px;
+}
+p {
+	font-size:24px;
+}
+pre {
+	font-size:24px;
+	font-family: 'Courier New';
+}
+hr {
+	width: 100%;
+	height: 2px;
+	
+	margin-top:10px;
+	margin-bottom:10px
+}
+.header {
+	text-align: center;
+	font-weight: bold;
+	font-size: 40px;
+	
+	margin-top:0px;
+	margin-bottom:0px;
+	
+	color: rgb(153, 0, 0);
+}
+.subheader {
+	color: #000099;
+	
+	margin-bottom:100px;
+}
+.segment-header, h2 {
+	color: rgb(0, 0, 153);
+	font-size: 30px;
+}
+.black-bold {
+	color: rgb(0,0,0);
+	font-weight: bold;
+}
+.glossary-term {
+	font-weight: 700;
+	color: #000099;
+}
+.code {
+	font-family: 'Courier New';
+}
+.comment {
+	color:rgb(0, 128, 0);
+}
+ul li {
+	margin-bottom: 5px;
+	font-size:24px;
+}.red {
+	color: #F00;
+}
+</style>
+</head>
+<body>
+<p class="header">COMP 2404 Fall 2019</p>
+<p class="header subheader">Tutorial 03: Values, Pointers and References</p>
+<p>&copy; L.D. Nel 2019</p>
+<hr />
+<p class="red">Revisions will be noted here</p>
+<hr />
+<p class="segment-header">Description:</p>
+
+<p>The purpose of this tutorial is to give you practice passing and returning by reference and by pointer. You will be modifying the demo code which is pass-by-value and making a pass-by-reference and pass-by-pointer version.</p>
+<p>We are going to ask you to make three versions of the demo code (one in each exercise). I suggest the easiest way is to make each project in its own folder with its own instances of .cpp and .h files</p>
+<p>The second part of this tutorial is to again reorganize  classes into separate .h and .cpp portions, protect the .h files with <span class="code">#ifndef</span> guard conditions and finally to create a <span class="code">makefile</span> to manage the compile dependencies.</p>
+<p>&nbsp;</p>
+<p class="red">This tutorial is meant to be started as homework. You will not be able to finish if you only start working on it at your tutorial session.</p>
+<p>&nbsp;</p>
+<hr/>
+<h2>PART I</h2>
+<h2>Preliminary</h2>
+<p>Open the <span class="black-bold">part 1 demo code</span> in an editor and compile and run the main.cpp file with </p>
+<p><span class="code">g++ -g -Wall  main.cpp</span><span class="code"></span></p>
+<p class="code">./a.out</p>
+<p>My output looked like this:</p>
+<p><img src="images/prelim1-1.png" width="423" height="179" alt=""/></p>
+<p>&nbsp;</p>
+<p>Look at the code in the <span class="code">runApp()</span> function in <span class="code">main.ccp</span> that produced this output:</p>
+<p>&nbsp;</p>
+<pre>
+void runApp(){
+   /* run the application */
+   cout << "PASS BY VALUE EXAMPLE" << "\n";
+
+   BankAccount b("Lou", 1000);  //opening balance $1000
+
+   b.deposit(500).withdraw(700).withdraw(450);
+
+   cout << "\n" << b << "\n"; //OUTPUTS 1500 ---What went wrong?
+
+}
+</pre>
+<p>Notice something seems to be wrong. The code creates a bank account with $1000 opening balance then deposits $500, withdraws $700 and withdraws $450. We might thus expect the the balance after these operations would be $1000 + $500 - $700 - $450 = $350. But instead the final balance of bank account b is $1500. (I wish my real bank account was that forgiving of my withdrawls!) </p>
+<p>&nbsp;</p>
+<hr/>
+<h2>&nbsp;</h2>
+<h2>Problem 1) Finding The Copies</h2>
+<p>For this exercise we want to demonstrate why the balance is what it is and where the money is ending up. Examine the bankaccount.h file and see if you can spot what the problem is. Regardless, we want to demonstrate what the issue is by investigating all of the places where bankaccount objects are created and destroyed, and when they are destroyed we want to see what their balances final balances where.</p>
+<p>The demo <span class="code">Bankaccount</span> class currently has a constructor and a copy constructor by no destructor. Add the following output statement to the end of the constructor:  </p>
+<p class="code">cout << "\n" << "CONSTRUCT: BankAccount @" << this;  </p>
+<p>and add the following output statement to the end of the copy constructor:</p>
+<p class="code"> cout << "\n" << "COPY CONSTRUCT: BankAccount @" << this;  </p>
+<p>finally add a destructor that will output the fact that a bankaccount object is being destroyed and that also prints out the final balance of the bank account:  </p>
+<pre>
+~BankAccount(){
+  cout << "\n" << "DESTRUCT: BankAccount @" << this << " balance: $" << balance;
+}  
+</pre>
+<p>Run the modified code and you should see output that looks like the following.</p>
+<p><img src="images/prob1-1.png" width="628" height="348" alt=""/></p>
+<pre>&nbsp;</pre>
+<p>Figure out, and be able to explain, where in the code all the copies are coming from and be able to explain why the account balances are what they are.</p>
+<p>&nbsp;</p>
+<hr>
+<h2>Problem 2) Pass By Reference</h2>
+<p>&nbsp;</p>
+<p>Probably the programer writing the main program meant for all the deposits and withdrawls to happen to the same bank account instead of copies. To accommodate this we want to avoid the copies of bank accounts being made by using pass-by-reference and return-by-reference.</p>
+<p>Create a new project that uses copies of the code from the previous exercise. Now change the public signatures of the deposit and withdraw methods in <span class="code">bankaccount.h</span> to return by reference. That is, the signatures should look like the following (notice the & which specifies a return by reference, not by value).</p>
+<p class="code">BankAccount & deposit(float amount)  </p>
+<p class="code">BankAccount & withdraw(float amount)  </p>
+<p>Note that since <span class="code">this</span> is a pointer to the object exectuing a method to return that object by reference the methods would still return <span class="code">*this</span>.</p>
+<p>Make whatever changes you need to make the <span class="code">bankaccount.h</span> and <span class="code">main.cpp</span> consistent with these new method signatures. Also change the output statement to indicate that the is now a pass by reference example.</p>
+<p>Compile and run the code. You should see output that looks like the following. You should notice this time that no copies of the bank account object is made and the balance ends up as one might expect.</p>
+<p><img src="images/prob2-1.png" width="603" height="206" alt=""/></p>
+<hr>
+<h2>Problem 3) Pass By Pointer</h2>
+<p>Finally we want to make a version of the code that is uses pointers instead of references.
+
+Create a new project that again uses copies of the code from the first exercise. Now change the public signatures of the deposit and withdraw methods in bankaccount.h to return by pointer. That is, the signatures should look like the following (notice the * which specifies a return by pointer, not by value).</p>
+<p class="code">BankAccount * deposit(float amount)</p>
+<p class="code">BankAccount * withdraw(float amount)</p>
+<p>Note that since <span class="code">this</span> is a pointer to the object exectuing a method to return that object by reference the methods would return <span class="code">this</span>.</p>
+<p>Make whatever changes you need to make the <span class="code">bankaccount.h</span> and <span class="code">main.cpp</span> consistent with these new method signatures.  </p>
+<p>Compile and run the code. You should see output that looks like the following. Again you should notice that no copies of the bank account object is made and the balance ends up as one might expect.</p>
+<p><img src="images/prob3-1.png" width="589" height="208" alt=""/></p>
+<hr>
+<h2>PART II</h2>
+<h2>Problem 4) .h and .cpp files</h2>
+<p>This exercises pertains to discussion on the <span class="code">#include</span> statement in section 07 of the course notes.</p>
+<p>The part II demo code has an example with an <span class="code">address.h</span> and <span class="code">person.h</span> class and test them with a <span class="code">main.cpp</span>. </p>
+<p>&nbsp;</p>
+<p>First of all compile and run the code with</p>
+<p class="code">g++ -g -Wall main.cpp</p>
+<p class="code">./a.out</p>
+<p>&nbsp;</p>
+<p>Notice there appears to be a lot of <span class="code">person</span> and <span class="code">address</span> objects being created and destroyed. You should be able to figure out where all the creations and destructions are coming from but that is not the exercise here.</p>
+<p>We want you to take the demo code and break the <span class="code">address</span> and <span class="code">person</span> classes into two files each: an <span class="code">address.h</span> and <span class="code">address.cpp</span> and an <span class="code">person.h</span> and <span class="code">person.cpp</span>.
+  
+  Here are the specific requirements. </p>
+<p>1) The <span class="code">.h</span> files should be protected with <span class="code">#ifndef</span> and <span class="code">#endif</span> guard conditions so that they may be included any number of times without cause re-definition problems. </p>
+<p>2) The <span class="code">.h</span> files should only contain the class construct with prototype methods (that is, method signatures that end in ;) </p>
+<p>The <span class="code">.h</span> files should not contain executable code (i.e. method bodies) </p>
+<p>3) The <span class="code">.cpp</span> files should <span class="code">#include</span> the appropriate <span class="code">.h</span> files and provide the executable code (method bodies for their corresponding classes). </p>
+<p>4) The main.cpp should <span class="code">#include</span> only <span class="code">.h</span> and not <span class="code">#include</span> <span class="code">.cpp</span> files. In fact, no file should<span class="code"> #include</span> a <span class="code">.cpp</span> file -ever.</p>
+<p>Having done this you should be able to compile and run the code like this:</p>
+<p class="code">g++ -g -Wall person.cpp address.cpp main.cpp</p>
+<p class="code">./a.out</p>
+<p>&nbsp;</p>
+<hr>
+<h2>Problem 5) A Simple <span class="code">makefile</span></h2>
+<p>Finally we want you to create a simple <span class="code">makefile</span>  that will handle the compile dependencies. As homework before the tutorial read the short .pdf article: &quot;Make Files from Linux Programming by Silviu Sosiade&quot; included with this tutorial. </p>
+<p>Look at the <span class="code">makefile</span> that is included with the <span class="black-bold">CUShop Sample Application</span> in the course notes. Use it as a template to create a <span class="code">makefile</span> for the code from the previous problem. Here are some specific requirements.</p>
+<p>1) Use an <span class="code">OBJ = main.o person.o address.o</span> variable to list the object files your code depends on.</p>
+<p>2) Provide a </p>
+<pre>
+myApp: $(OBJ)
+  g++ -o myApp $(OBJ)
+</pre>
+<p>target for creating the <span class="code">myApp</span> application executable.</p>
+<p>3) Your individual <span class="code">.o</span> targets would look like this:</p>
+<pre>
+main.o: main.cpp
+  g++ -c main.cpp
+</pre>
+<p>or</p>
+<pre>
+address.o: address.cpp addresss.h
+  g++ -c address.cpp
+</pre>
+<p>4) Provide a <span class="code">clean</span> target that will remove your app's executable and also any of the <span class="code">.o</span> files that were created during the make.</p>
+<pre>
+clean:
+  rm -f $(OBJ) myApp
+</pre>
+<p>&nbsp;</p>
+<p>Now should be able to compile and run your application like this:</p>
+<p class="code">make myApp</p>
+<p class="code">./myApp</p>
+<p>And you should be able to remove the <span class="code">.o</span> files and <span class="code">myApp</span> executable with</p>
+<p class="code">make clean</p>
+<p>&nbsp;</p>
+<p><span class="red">When you have finished these Problems demonstrate your work to a tutorial TA to get credit for the tutorial.</span></p>
+<h2>&nbsp;</h2>
+<p class="red">&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,84 @@
+//2404 A2 Demonstration of Commands Script
+
+//Test add Commands
+//add recording
+add -r 103 "Beatles For Sale" "Beatles" "George Martin" 1964
+//add song
+add -s 1001 "Misery" "Paul McCartney, John Lennon"
+//add tracks 1 and 57
+add -t 1 100 1001 1
+add -t 57 104 1056 3
+//add users
+add -u ajones "Anne Jones"
+add -u ldnel "Louis Nel"
+//add playlists
+add -p ldnel "Driving Songs"
+//add playlist tracks
+add -l ldnel "Driving Songs" 1
+add -l ldnel "Driving Songs" 57
+
+//Test show Commands
+show songs
+show users
+//show playlists -u user_id
+show playlists -u ldnel
+//show songs -u user_id -p playlist_name
+show songs -u ldnel -p "Driving Songs"
+//show all recordings
+show recordings
+//show all tracks
+show tracks
+
+//Test delete Commands
+//delete -s song_id
+delete -s 1001
+// Track 1001 should not be in Driving Songs anymore
+show songs -u ldnel -p "Driving Songs"
+//delete -s song_id -p playlist_name -u user_name
+// Cindy should have song 1056 in her playlist "help"
+show songs -u cindy -p "help"
+// Delete song 1056 from her playlist
+delete -s 1056 -p "help" -u cindy
+// Cindy should not have song 1056 in her playlist
+show songs -u cindy -p "help"
+
+//delete -Global -s song_id -p playlist_name -u user_name
+delete -Global -s 1059 -p "help" -u cindy
+// Song 1059 should not appear in cindy's help or ldnel's driving songs
+// This is cindy's songs in help
+show songs -u cindy -p "help"
+// This is ldnel's songs in Driving Songs
+show songs -u ldnel -p "Driving Songs"
+//delete -r recording_id
+delete -r 103
+// recording 103 shouldn't exist anymore
+show recordings
+//delete -u user_id
+//deleting user ldnel
+delete -u ldnel
+//delete -p playist_name -u user_id
+//deleting playlist "help" from cindy
+delete -p "help" -u cindy
+//delete -t song_id recording_id
+//deleting track with song_id 1029
+delete -t 1029 111
+//Track with songID 1029 should no longer exist
+show tracks
+
+
+//Test UI SHELL COMMANDS (start with a dot):
+//not included in this test:
+//.quit --because it will terminate the app
+//.help --not meant to be scripted
+//.log save filename --can be done manually
+//.read --proved by being able to run this script
+//Test Logs
+//.log clear //clear the logs
+//.log start //begin logging commands only
+//.log start_output //begin logging output only
+//.log start_both  //begin logging commands and output
+//.log stop //stop logging
+//.log show //display current log contents on console
+
+//Test Comments
+//This is a comment.

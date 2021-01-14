@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>2404</title>
+<style type="text/css">
+body {
+	font-family: Arial, Helvetica, sans-serif;	
+	margin-left:80px;
+	margin-right:80px;
+}
+h1, h2, h3 {
+	font-weight: bold;
+	color: blue;
+}
+p {
+		font-size: large;
+}
+
+.red {
+	color: #F00;
+}
+.bold {
+	font-weight: bold;
+}
+.requirement {
+	font-weight: bold;
+	background-color: #6AF37A;
+}
+.requirement_danger {
+	font-weight: bold;
+	background-color: #F47272
+}
+.requirement_warning {
+	font-weight: bold;
+	background-color: #F6CA54
+}
+.code {
+	font-family: "Courier New", Courier, monospace;
+}
+.requirement_warning1 {	font-weight: bold;
+	background-color: #F7BD36
+}
+</style>
+</head>
+
+<body>
+<h1>Comp 2404 Fall 2019 Assignment 1</h1>
+<h1 class="red">Due Date: Wed. Oct. 2 by 10:00pm in Culearn.</h1>
+<h1></h1>
+<p class="red">Assignment Submissions Instructions: Assignments must be submitted via <a
+href="http://www.carleton.ca/culearn">culearn</a> by the due date and time. Late assignments will not be accepted. See the Development Process Requirements below for what exactly to submit and how.</p>
+<p>You may work on assignments in pairs if you want, in which case only one copy should be submitted with both your names on  the files and in the ReadMe.txt file. If neither submits (because they thought the other one would) both get a mark of 0.</p>
+<p>The starting point for this assignment is Tutorial 02 and the sample application in the notes: 06 CUShop Sample Application. If you review this material it will give you a good starting point.</p>
+<hr />
+<h2 class="red">Revisions:</h2>
+<p class="red" >Rev 1.0 [Sept 28] In response to a couple of emails I've added a clarification to good practice requirement PR0.7 regarding the use of (or more correctly not using) global variables to couple sections of code.</p>
+<hr />
+<h2>&nbsp;</h2>
+<h2>Categorization of Assignment Requirements</h2>
+<p>All assignments in this course will be based on itemized and categorized requirements. There will be four categories of requirements: Process Requirements, Functional Requirements, System Requirements, and Domain Requirements.</p>
+<p><span class="bold">Process requirements</span> (aka Software Engineering Requirements, Development Process Requirements, Good Practice Requirements) are requirements imposed by the software development process that is  being followed by the developers. <span class="red">Here they  include the requirements on how to submit your assignments successfully and have them marked</span>. They do not have anything to do with the specific application being developed  but rather pertain to the development process that is being used. They include the requirements that reflect how your assignment will be tested and marked. <span class="red">In assignments you will not get marks for meeting process requirements, instead you lose marks if they are not met -in some cases ALL of your marks</span>.</p>
+<p><span class="bold">Functional</span>, <span class="bold">System</span>, and <span class="bold">Domain</span> requirements all pertain to the actual application being developed. Collectively these are referred to as the <span class="bold">Design Requirements</span>. In assignments you will get marks for those design requirements that are met. So the number of these requirements determine what the assignment will be marked out of.</p>
+<p><span class="bold">Functional Requirements</span> (aka User Requirements) pertain to what the user wants to do with the app and how it is to be operated. If a functional requirement is not met one would expect a user or client to notice that. The wording of functional requirements should make sense to the intended user or client. They should not contain references to &quot;objects&quot; in the object-oriented programming sense.</p>
+<p><span class="bold">System Requirements</span> (aka Constraints) are requirements imposed on the developer to make the development profitable (or evolvable, or resuable, ...). If a system requirement is not met the user, or client, of the app would likely not be aware of that. For example, the user of your app is not aware of whether you used objects to implement it or not. System requirements can make reference to &quot;objects&quot; in the object-oriented programming sense because the developers understand that.</p>
+<p><span class="bold">Domain Requirements</span> (aka Legal Requirements) are requirements imposed by the domain, or demographic, in which your app is intended to operate. For example, if you are making a PG13 movie about  object-oriented development then the requirements that must be met for a movie to be considered PG13 are domain requirements. (Treating people as objects might be considered inappropriate for a young audience; treating objects as people will likey garner an R-rating.)</p>
+<p>It will be an ongoing challenge in the course to fit requirements into one of the four categories or determine if there is an important missing category. In real life there are often many more requirement catagories.</p>
+<p>&nbsp;</p>
+<hr width="100%">
+<p><span class="badge-danger">Marking:</span> This assignment 
+is based on 22 design requirements numbered <span class="badge-success"><span class="requirement">SR1.1</span></span>...<span class="badge-success"><span class="requirement">FR1.18</span></span> for a total of <span class="red">44</span> marks. </p>  
+<p>Marks are awarded, or deducted, based on formalized requirements as follows:</p>
+<table border="1">
+  <tr>
+    <th width="83">Req Type</th>
+    <th width="716">Assignment Grading</th>
+  </tr>
+  <tr>
+    <td><span class="requirement_danger">R0.x</span></td>
+	  <td><p><span class="requirement_danger">Critical Submission and Intent Requirements (Process Requirements).</span> Assignment gets 0 if <span class="bold">any</span> critical submission<br>
+      requirement (shown in red) is not met.<br>
+    </p></td>
+  </tr>
+  <tr>
+    <td><span class="requirement_warning">R0.x</span></td>
+	  <td><p><span class="requirement_warning">Good Practice Requirements (Process Requirements).</span> You lose 2 marks for each good practice <br>
+      requirement (shown in amber) not met.<br>
+    </p></td>
+  </tr>
+  <tr>
+    <td><span class="requirement">Rx.x</span></td>
+	  <td><p><span class="requirement">Design Requirements.</span> You earn 2 marks for each design requirement (green) satisfied and well implemented; 1 mark if it's partly met or met but not well implemented; and 0 if it's not met or attempted.</p></td>
+  </tr>
+</table>
+<h2 class="red">&nbsp;</h2>
+<h2>Development Process Requirements</h2>
+<p>The following requirements will pertain to all your assignments regardless of what your application is supposed to do (i.e. regardless of the design requirements). These requirements are intended to ensure that your code is readable and maintainable by other programmers (or markable by TA's in our case), robust (it does not crash from bad pointer references or memory allocation problems), and follows good object-oriented programming practice. You will lose 2 marks from your total assignment mark for each of the following requirements that is not satisfied.<span class="red"> However if you do not satisfy requirement PR0.1, PR0.2 or PR0.3 you will get zero for the assignment mark.</span></p>
+<p><span class="badge badge-danger"><span class="requirement_danger">PR0.1</span></span> <span class="red">[Assignment mark = 0 if not met]  UNIQUENESS REQUIREMENT. The solution and code you submit MUST be unique. That is, it cannot be a copy of, or be too similar to, someone else's assignment, or  code found elsewhere. A mark of 0 will be assigned to any assignment that is judged by the instructors or the TA's not to be unique.</span></p>
+<p> You are, however, free to use any code posted on our course web (e.g. notes, sample code, tutorial demo code and answers) as part of you assignment solutions. </p>
+<p><span class="badge badge-danger"><span class="requirement_danger">PR0.2</span></span> <span class="red">[Assignment mark = 0 if not met] CODE SUBMISSION REQUIRMENTS: For the purposes of assignments your code and supporting documents must be submitted to culearn and comply with the following.</span></p>
+<p class="red">1) You should submit C++ source code file and any supporting script files, documentation files required and, when appropriate the associated make file to assist the compilation. Your name and student number should be at the top of each file. There should always be a ReadMe.txt file with your assignment. If you are working with a partner, both names and student numbers must appear on the files and only submit one copy of the assignment to culearn.</p>
+<p class="red">2) COMPRESSION If your assignment files are compressed we will accept only .tar, .tar.gz, or .zip format compatible with one of the following three linux commands for extraction:</p>
+<p class="red">tar -xvf filename.tar<br>
+  tar -xvf filename.tar.gz<br>
+unzip filename.zip</p>
+<p class="red"> <br>
+  3)ReadMe.txt: Your assignment must be accompanied by a ReadMe.txt file in which the following should appear:</p>
+<p class="red">-Which extraction command should be used to uncompress your assignment files.<br>
+  -Which g++ compiler command should be executed to compile your code.<br>
+  -Instructions on what script, or scripts to run  to demonstrate your testing.</p>
+<p class="red">4) In general you should provide a testing script, or main program that runs appropriate test cases to demonstrate that the design requirements are being met. (Not all requirements can be demonstrated like that, but functional requirements usually can be -especially if we are building command line applications.)</p>
+<p><span class="badge badge-danger"><span class="requirement_danger">PR0.3</span></span> <span class="red"> [Assignment mark = 0 if not met] CODE COMPILATION and TESTING: </span></p>
+<p class="red">The TA must be able to compile your code using the g++ compiler installed in our 2401-F19.ova virtual box linux image. (A current gcc installation should be compatible with that, but you should check.). The TA will run the g++ command specified in your ReadMe.txt file and when compiling is complete run your exectuable to begin verifying the assignment requirements. If your code cannot be compiled as described the assignment mark will be zero. (The TA's will not debug your code in an effort to get it to compile.)</p>
+<p class="red">&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.4</span></span> CODE ORGANIZATION: Your code files should contain only one .cpp file containing the substring &quot;main&quot; in the title and that file should have the<span class="code"> int main()</span> entry point function for your code. Your object-oriented classes should each be represented in two files <span class="code">classname.h</span> and <span class="code">classname.cpp</span>. The .h header files should contain only type declarations and not executable code (method bodies). </p>
+<p>&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.5</span></span> VARIABLE AND FUNCTION NAMES: All of your variables, methods and classes should have meaningful names that reflect their purpose. Do not follow the convention in math courses where they say things like: &quot;let x be the number of customers and let y be the number of products...&quot;. Instead call your variables <span class="code">numberOfCustomers</span> or <span class="code">numberOfProducts</span>. Your program should not have any variables called &quot;x&quot; unless there is a good reason for them to be called &quot;x&quot;. (One exception: it's OK to call simple for-loop counters i,j and k etc. when the context is clear and VERY localized.)</p>
+<p>&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.6</span></span> MEANINGFUL CONSTANT NAMES: Constant values should have meaningful names and not just be represented as numbers or strings in expressions. For example don't say:<br>
+  <span class="code">cin.getline(input, 80);</span><br>
+rather say:<br>
+<span class="code">cin.getline(input, MAX_INPUT_LENGTH);</span></p>
+<p>&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.7</span></span> VARIABLES: All instance variables in your classes should be <span class="code">private</span>, unless a specific design requirements asks for them to be <span class="code">public</span> (which is unlikely). It is good programming practice to design objects that provide services to others through their <span class="code">public</span> methods. How they store their variables is their own private business. C or C++ unbounded arrays should not be used as public data structures. They should be encapsulated in a class which takes care of their length or number of elements. Also methods used soley by a class for its own housekeeping, and which are not considered part of the public inteface, should be in the <span class="code">private</span> section of a class.</p>
+<p class="red">[Rev 1.0] Your code should not be coupled through global variables. That is, objects should not communicate through the existance of global variables. Instead pass appropriate objects through constructor parameters.</p>
+<p>&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.8</span></span> ROBUSTNESS REQUIREMENTS: Your program should not crash when the TA is marking it because of a bad pointer dereferences, out of bounds error memory access, or memory leaks or double deletions. <span class="red">We get especially annoyed by out of bounds  &quot;off by one&quot; errors! </span>Your code should not have any memory leaks or double deletions. Moreover the heap memory should be empty when your procedure <span class="courier">main() </span>returns. That is, all heap objects should be properly deleted before the program exits. </p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.9</span></span> COMMENTING REQUIREMENTS: Comments in your code must coincide with what the code actually does. It is a  common bug for people to modify code and forget to modify the comments and so you end up with comments that say one thing and code that actually does another. Don't use comments to clarify poor variable or method names -instead choose good variable names and method names that makes the code more &quot;self-commenting&quot;. </p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.10</span></span> OUTPUT LABELING REQUIREMENTS: Your programs output must have sufficient comments or remarks so that the output can understood. Don't have your program just write out a bunch of integers with no indication of what they mean or what the test they supposedly demonstrate.<span class="red"> The TA's should be able to read and understand your output WITHOUT having to look at your code to see what the output means.</span> It is a good idea to refer specifically to the numbered design requirements in your output to help indicate which requirement you are demonstrating.</p>
+<p>&nbsp;</p>
+<p class="red">VERY IMPORTANT: </p>
+<p class="red">Requirements tend to make sense to the person who wrote them  because that person knows what they were trying to say. You don't know what they were trying to say, only what they actually did say. So you need to ask lots of questions when things are not clear. A picture is worth a thousand words and a requirement fix is worth a thousand programing fixes.</p>
+<p class="red">Any sample code fragments provided with assignments  might have bugs (although none are  put there intentionally). It is part of your job to identify errors in the code and in the requirements and seek clarification. </p>
+<hr />
+<h2>Assignment #1 Design Requirements</h2>
+<h2>&nbsp;</h2>
+<h2>MyTunes Music Library</h2>
+<h2>Background  </h2>
+
+<p>This development project pertains to the following scenario.</p>
+<p>Our client, or development sponsor, wants to create an application that would allow a household or group of people to combine their individual  CD music collections by   ripping them all to mp3's and then accessing the collection with a command line app implementing a linux-style command line language. The app should host the music collection and provide users (members) with access to the information. A user should be able to create playlists and place songs from the music collection in their various playlists. A user should be able to search for songs and add and delete songs from their playlists or to and from the music collection as a whole. (Ultimately a user should be able to play song selections but our initial development scope will be building an app to manage the information about the songs and provide access to that).</p>
+<p>The client has tried some commercial mp3 players (e.g. itunes, amazing slow downer, anytunes etc.) and found them all to be unsatisfactory. Here are some of the &quot;deal breakers&quot; with other apps that should be addressed in this development. </p>
+<p>1) A user should be able to add and remove songs by way of the playlists and not just a by way of a global songs collection. When you delete a song from a playlist it should be, optionally, possible to delete it from the entire library as well.</p>
+<p>2) Searching for songs should not be encumbered by case or punctuation in song titles or CD titles. One should be able to search based on partial information about titles, names etc.</p>
+<p>3) A user should be able to script commands and run them from a file and not just execute them one by one interactively on the command line interface.</p>
+<p>4) A user should be able to log the commands and responses and save them as a record (or audit) of a session with the app.</p>
+<p>&nbsp;</p>
+<h2>Scope  </h2>
+
+<p>This development phase (assignment) has the following scope.</p>
+<p>For this assignment you will implement the command language and &quot;front end&quot; command line interface that the users will use to operate the application. The client has designed a linux-style command language that will be used to operate the application. This language is represented in three files they have provided:</p>
+<p><span class="code">help.txt</span> //file that shows catalog of commands that need to be implemented<br>
+  <span class="code">2404A1insertDataScript.txt</span> //script file of data insertion commands<br>
+  <span class="code">2404A1demoOfCommandsScript.txt</span> //script file of user commands</p>
+<p>The language uses linux-style commands in which command arguments are often preceeded with &quot;flags&quot; to indicate what they mean. That is, arguments are preceeded by a dash and a character. For examples<br>
+  <span class="code">delete -s song_id</span><br>
+Here <span class="code">-s</span> is a flag indicating that argument that follows refers to a song. </p>
+<p>The language also identifies some &quot;dot&quot; commands. These commands, like <span class="code">.read,</span> are preceeded by a dot character. These commands are not intended to be part of scripts or manipulate song or playlist data. Rather they  are commands that apply only to the interactive command line session and don't manipulate application data.</p>
+<p>Finally there are some developer helper commands specified as well.</p>
+<p>One of the requirements is that commands can be read from a script file and executed one line at a time. Thus your code will need to support the test scripts that have been provided. One script illustrates commands that  enter data and example songs from recordings of The Beatles. The other a script  illustrates some of the commands for using the application.</p>
+<p>Note in this phase we are only designing the front end so we will not actually represent the song or playlist data inside the app yet. In this phase we just need to show that the commands are being parsed correctly and that their arguments properly isolated. The dot commands, however, need to be fully functioning in this phase (assignment).</p>
+<p>The following possible requirements are being left out of this phase (assignment): representing song and playlist data, searching for songs and recordings by title, authentication of members, showing actual application data.</p>
+<p>The main C++ programming capabilities you will likely need for the assignment are:</p>
+<p>Writing prompt strings to the terminal.</p>
+<p>Reading user command strings from the terminal.</p>
+<p>Parsing a command string into its revelant command parts.</p>
+	<p>Opening and reading a text file one line at a time.</p>
+<p>Creating and Writing to a text file one line at a time.</p>
+<p>Storing strings in a container (to serve as the session log.) which can later be written out to a text file.</p>
+<p>Part of these capabilities are illustrated in our tutorials, especially tutorial 02. Also I've posted an example command-line c++ application from a previous 2404 course offering in the notes in section 06_CUShop_Sample_Application that. </p>
+<p><br>
+</p>
+<p>So for this assignment you need to parse and &quot;execute&quot; the commands both interactively and by reading a script. Executing a commands at this stage will just produce &quot;dummy&quot; output to acknowledge that the command was properly received and parsed. The script reading and logging however must be made fully functional in this phase along with any other dot commands.  Your implementation should be able to execute the sample scripts provided.</p>
+<p>Be aware the although the command language needs to be scriptable (one command per line like linux bash scripts) your interface need not be. For example, your command line interface could expect the user to type the entire command, or it could accept just a keyword and then prompt the user for addtional attributes, or it could print a menu of choices and ask the user to make a selection (like the CUShop sample app). You need to design what you think will work best for the intended application and new requirements you anticipate.</p>
+<hr>
+<h2>Domain Requirements</h2>
+<p>(The following  requirements have been categorized as Domain requirements -though they look suspiciously like user requirements. Why might that be?)</p>
+<p>Note we will NOT be assessing these domain requirements in this phase (assignment) as we are not yet executing the application commands for real.</p>
+<p><br />
+  <span class="bold">DR1.1)</span> Any song, CD, or Album titles or any band names should always be displayed for the user in title case. That is, the first letter of each word should be capitalized and any title or name that starts with the word &quot;The&quot; should be displayed with  the &quot;The&quot; at the end. (e.g. The Beatles should be displayed as Beatles, The) 
+  [This will apply  to future assignments but is added now to show an example of a domain requirement.]</p>
+<p><span class="bold">DR1.2)</span> Any searches for song titles or recording titles should ignore both case and punctuation. For example &quot;take the A train&quot; should match &quot;Take The 'A' Train&quot;. </p>
+<p><span class="bold">DR1.3)</span> Any searches for song titles or recording titles should accept placeholder characters repesented by a &quot;*&quot;. From example &quot;* Ipanema&quot; would match &quot;The Girl From Ipanema&quot;.</p>
+<hr />
+<h2>System Requirements (Constraints)</h2>
+<p><span class="requirement">SR1.1</span>  The application should be written in C++ and have a REPL (read-evaluate-print-loop) linux-style command line interface. The code should be packaged for compilation with a g++ linux compiler.</p>
+<p><span class="requirement">SR1.2</span> The application code should be fully object-oriented. That is, except for the  <span class="code">int main(){}</span> entry point function and maybe some initialization helper functions, all  funtionality should be through <span class="bold">methods</span> of some <span class="code">class</span> (either <span class="code">static</span> or instance methods).</p>
+<p><span class="requirement">SR1.3</span> The application should decouple  objects used to implement the interface from those at represent the control logic. Also objects that represent domain entities (things like song data) should be decoupled from the interface and control objects.</p>
+<p><span class="requirement">SR1.4</span> Entity objects (that pertain to application data) should be represented through a single instance and not copies. For example, if a song is an object and it appears in several playlists, the playlists should refer to a single instance and not have separate copies of the song object. Playlists, for example, could &quot;point&quot; to song objects or could contain state information, like id or title, that could be used to identify the actual song object but should not contain copies of song data. This is very much in line with what is considered the &quot;object-oriented&quot; way of doing things.</p>
+<hr />
+<h2>Functional Requirements (User Requirements)</h2>
+<h3>&nbsp;</h3>
+<p class="red">The TA's will be testing your interactive interface but will first run the two sample scripts provided. After running the scripts they will test some commands interactively, especially the dot commands.</p>
+<p class="red">&nbsp;</p>
+<p><span class="requirement">FR1.1</span> REPL Loop: When the application launches it should present the user with a command line terminal and prompt ready to receive commands. When a command executes the results should be displayed for the user followed by another prompt  and be ready to receive the next command. (like the bash terminal in linux). See image below.</p>
+<p><span class="requirement">FR1.2</span> The command language you implement should be consistent with what is described in the <span class="code">help.txt</span> file.</p>
+<p><span class="requirement">FR1.3</span> The application should not crash if dot commands (intended for the interactive command line interface) are included in a script read in with the <span class="code">.read</span> command. Dot commands that appear in scripts should be ignored when the script is read.</p>
+<p><span class="requirement">FR1.4</span> Commands that are &quot;command shell only&quot; should start with a &quot;.&quot; dot. For example  <span class="code">.help</span>. </p>
+<p><span class="requirement">FR1.5</span> For the non-dot application commands your application should simulate their execution and the output should clearly show that the command was recognized and correctly parsed and an execution simulated. For example:</p>
+<p><img src="images/command_parse.png" width="851" height="291" alt=""/></p>
+<p>Note it is not enough just to echo back what a user typed. Your output should demonstrate that you properly interpreted the parts of the command (command name, arguments etc.)</p>
+<p><span class="requirement">FR1.6</span> The arguments of a command should be separated by blanks. Mutli-word arguments like song titles should be delimited by &quot;&quot; quotation marks. See image above for example. </p>
+<p><span class="requirement">FR1.7</span> When arguments are separated by blanks the application should allow successive blanks. That is,<br>
+  <span class="code">add -s &quot;The Way We Were&quot; -u&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ldnel -p &quot;Driving Songs&quot;</span><br>
+to be equivalent to: <br>
+<span class="code">add -p &quot;Driving Songs&quot; -u ldnel -s &quot;The Way We Were&quot;</span></p>
+<p>But blanks within quoted multiword arguments should treat blanks as verbatim. That is,<br>
+  <span class="code">add -s &quot;The Way We Were&quot; -u ldnel -p &quot;Driving Songs&quot;</span><br>
+to NOT be equivalent to: <br>
+<span class="code">add -s &quot;The&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Way We Were&quot; -u ldnel -p &quot;Driving Songs&quot;</span></p>
+<p><span class="requirement">FR1.8</span> Commands that allow multiple flags should allow the flags to appear in any order. That is,<br>
+  <span class="code">add -s &quot;The Way We Were&quot; -u ldnel -p &quot;Driving Songs&quot;</span><br>
+to be equivalent to: <br>
+<span class="code">add -p &quot;Driving Songs&quot; -u ldnel -s &quot;The Way We Were&quot;</span></p>
+<p><span class="requirement">FR1.9</span> The application should have a <span class="code">.help</span> command to show, or remind, the user what the available commands are. The .help command should provide information to the user consistent with that in the <span class="code">.help.txt</span> file. This command, and other &quot;dot&quot; commands needs to actually work in this phase.</p>
+<p><span class="requirement">FR1.10</span> The application should have a <span class="code">.quit</span> command to exit the application. This command, and other &quot;dot&quot; commands, needs to actually work in this phase.</p>
+<p><span class="requirement">FR1.11</span> The application should have a <span class="code">.read</span> command that will read and execute the commands found in the script files. This command needs to actually work and show the simulated execution of all the commands in the script file read.</p>
+<p><span class="requirement">FR1.12</span> The application should have a <span class="code">.log</span> command that will allow the user to log sessions to a disk file. This command should implement all the options described in the help.txt file. This command needs to actually work in this phase (assignment).</p>
+<p><span class="requirement">FR1.13</span> The application should fully implement the developer commands (e.g. toTitleCase) described in the help.txt file. These commands needs to actually work in this phase (assignment).</p>
+<p><span class="requirement">FR1.14</span> The application should correcty accept and parse the <span class="code">add</span> commands described in the .help.txt file.</p>
+<p><span class="requirement">FR1.15</span> The application should correcty accept and parse the <span class="code">delete</span> commands described in the .help.txt file.</p>
+<p><span class="requirement">FR1.16</span> The application should correcty accept and parse the <span class="code">show</span> commands described in the .help.txt file.</p>
+<p><span class="requirement">FR1.17</span> The application should support the comment command // described in the help.txt file and it should correctly write the comments to the log and, if saved, the log file of the session. This command needs to actually work in this assignment implementation. Conversely comments that appear in the script files read with the <span class="code">.read</span> command should be ignored by the application.</p>
+<p><span class="requirement">FR1.18</span> Your code must show the proper execution of the two sample scripts provided.</p>
+<hr />
+</body>
+</html>

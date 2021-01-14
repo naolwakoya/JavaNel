@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>2404</title>
+<style type="text/css">
+body {
+	font-family: Arial, Helvetica, sans-serif;	
+	margin-left:80px;
+	margin-right:80px;
+}
+h1, h2, h3 {
+	font-weight: bold;
+	color: blue;
+}
+p {
+		font-size: large;
+}
+
+.red {
+	color: #F00;
+}
+.bold {
+	font-weight: bold;
+}
+.requirement {
+	font-weight: bold;
+	background-color: #6AF37A;
+}
+.requirement_danger {
+	font-weight: bold;
+	background-color: #F47272
+}
+.requirement_warning {
+	font-weight: bold;
+	background-color: #F6CA54
+}
+.code {
+	font-family: "Courier New", Courier, monospace;
+}
+.requirement_warning1 {	font-weight: bold;
+	background-color: #F7BD36
+}
+</style>
+</head>
+<body>
+<h1>Comp 2404 Fall 2019 Assignment 3<br>
+  Persisting The Data
+</h1>
+<h1 class="red">Due Mon Nov 18 by 10:00pm in Culearn.</h1>
+<h1></h1>
+<p class="red">Assignment Submissions Instructions: Assignments must be submitted via <a
+href="http://www.carleton.ca/culearn">culearn</a> by the due date and time. Late assignments will not be accepted. See the Development Process Requirements below for what exactly to submit and how.</p>
+<p>You may work on assignments in pairs if you want, in which case only one copy should be submitted with both your names on  the files and in the ReadMe.txt file. If neither submits (because, for example, they thought the other one would) both get a mark of 0.</p>
+<hr />
+<h2 class="red">Revisions:</h2>
+<p class="red">&nbsp;</p>
+<hr />
+<h2>Categorization of Assignment Requirements</h2>
+<p>All assignments in this course will be based on itemized and categorized requirements. There will be four categories of requirements: Process Requirements, Functional Requirements, System Requirements, and Domain Requirements.</p>
+<p><span class="bold">Process requirements</span> (aka Software Engineering Requirements, Development Process Requirements, Good Practice Requirements) are requirements imposed by the software development process that is  being followed by the developers. <span class="red">Here they  include the requirements on how to submit your assignments successfully and have them marked</span>. They do not have anything to do with the specific application being developed  but rather pertain to the development process that is being used. They include the requirements that reflect how your assignment will be tested and marked. <span class="red">In assignments you will not get marks for meeting process requirements, instead you lose marks if they are not met -in some cases ALL of your marks</span>.</p>
+<p><span class="bold">Functional</span>, <span class="bold">System</span>, and <span class="bold">Domain</span> requirements all pertain to the actual application being developed. Collectively these are referred to as the <span class="bold">Design Requirements</span>. In assignments you will get marks for those design requirements that are met. So the number of these requirements determine what the assignment will be marked out of.</p>
+<p><span class="bold">Functional Requirements</span> (aka User Requirements) pertain to what the user wants to do with the app and how it is to be operated. If a functional requirement is not met one would expect a user or client to notice that. The wording of functional requirements should make sense to the intended user or client. They should not contain references to &quot;objects&quot; in the object-oriented programming sense.</p>
+<p><span class="bold">System Requirements</span> (aka Constraints) are requirements imposed on the developer to make the development profitable (or evolvable, or resuable, ...). If a system requirement is not met the user, or client, of the app would likely not be aware of that. For example, the user of your app is not aware of whether you used objects to implement it or not. System requirements can make reference to &quot;objects&quot; in the object-oriented programming sense because the developers understand that.</p>
+<p><span class="bold">Domain Requirements</span> (aka Legal Requirements) are requirements imposed by the domain, or demographic, in which your app is intended to operate. For example, if you are making a PG13 movie about  object-oriented development then the requirements that must be met for a movie to be considered PG13 are domain requirements. (Treating people as objects might be considered inappropriate for a young audience; treating objects as people will likey garner an R-rating.)</p>
+<p>It will be an ongoing challenge in the course to fit requirements into one of the four categories or determine if there is an important missing category. In real life there are often many more requirement catagories.</p>
+<p>&nbsp;</p>
+<hr width="100%">
+<p><span class="badge-danger">Marking:</span> This assignment 
+  is based on 18 design requirements numbered <span class="badge-success"><span class="requirement">DR3.1</span></span>...<span class="badge-success"><span class="requirement">FR3.13</span></span> for a total of <span class="red">36</span> marks. </p>
+<p>Marks are awarded, or deducted, based on formalized requirements as follows:</p>
+<table border="1">
+  <tr>
+    <th width="83">Req Type</th>
+    <th width="716">Assignment Grading</th>
+  </tr>
+  <tr>
+    <td><span class="requirement_danger">R0.x</span></td>
+    <td><p><span class="requirement_danger">Critical Submission and Intent Requirements (Process Requirements).</span> Assignment gets 0 if <span class="bold">any</span> critical submission<br>
+      requirement (shown in red) is not met.<br>
+    </p></td>
+  </tr>
+  <tr>
+    <td><span class="requirement_warning">R0.x</span></td>
+    <td><p><span class="requirement_warning">Good Practice Requirements (Process Requirements).</span> You lose 2 marks for each good practice <br>
+      requirement (shown in amber) not met.<br>
+    </p></td>
+  </tr>
+  <tr>
+    <td><span class="requirement">Rx.x</span></td>
+    <td><p><span class="requirement">Design Requirements.</span> You earn 2 marks for each design requirement (green) satisfied and well implemented; 1 mark if it's partly met or met but not well implemented; and 0 if it's not met or attempted.</p></td>
+  </tr>
+   <tr>
+    <td>Rx.x</td>
+    <td><p><span class="bold">Out of Scope Requirements.</span> Requirements that are not coloured pertain to the project as a whole be are not being evaluted in this scope (assignment).</p></td>
+  </tr>
+</table>
+<h2 class="red">&nbsp;</h2>
+<h2>Development Process Requirements</h2>
+<p>The following requirements will pertain to all your assignments regardless of what your application is supposed to do (i.e. regardless of the design requirements). These requirements are intended to ensure that your code is readable and maintainable by other programmers (or markable by TA's in our case), robust (it does not crash from bad pointer references or memory allocation problems), and follows good object-oriented programming practice. You will lose 2 marks from your total assignment mark for each of the following requirements that is not satisfied.<span class="red"> However if you do not satisfy requirement PR0.1, PR0.2 or PR0.3 you will get zero for the assignment mark.</span></p>
+<p><span class="badge badge-danger"><span class="requirement_danger">PR0.1</span></span> <span class="red">[Assignment mark = 0 if not met]  UNIQUENESS REQUIREMENT. The solution and code you submit MUST be unique. That is, it cannot be a copy of, or be too similar to, someone else's assignment, or  code found elsewhere. A mark of 0 will be assigned to any assignment that is judged by the instructors or the TA's not to be unique.</span></p>
+<p> You are, however, free to use any code posted on our course web (e.g. notes, sample code, tutorial demo code and answers) as part of you assignment solutions. </p>
+<p><span class="badge badge-danger"><span class="requirement_danger">PR0.2</span></span> <span class="red">[Assignment mark = 0 if not met] CODE SUBMISSION REQUIRMENTS: For the purposes of assignments your code and supporting documents must be submitted to culearn and comply with the following.</span></p>
+<p class="red">1) You should submit C++ source code file and any supporting script files, documentation files required and, when appropriate the associated make file to assist the compilation. Your name and student number should be at the top of each file. There should always be a ReadMe.txt file with your assignment. If you are working with a partner, both names and student numbers must appear on the files and only submit one copy of the assignment to culearn.</p>
+<p class="red">2) COMPRESSION If your assignment files are compressed we will accept only .tar, .tar.gz, or .zip format compatible with one of the following three linux commands for extraction:</p>
+<p class="red">tar -xvf filename.tar<br>
+  tar -xvf filename.tar.gz<br>
+  unzip filename.zip</p>
+<p class="red"> <br>
+  3)ReadMe.txt: Your assignment must be accompanied by a ReadMe.txt file in which the following should appear:</p>
+<p class="red">-Which extraction command should be used to uncompress your assignment files.<br>
+  -Which g++ compiler command should be executed to compile your code.<br>
+  -Instructions on what script, or scripts to run  to demonstrate your testing.</p>
+<p class="red">4) In general you should provide a testing script, or main program that runs appropriate test cases to demonstrate that the design requirements are being met. (Not all requirements can be demonstrated like that, but functional requirements usually can be -especially if we are building command line applications.)</p>
+<p><span class="badge badge-danger"><span class="requirement_danger">PR0.3</span></span> <span class="red"> [Assignment mark = 0 if not met] CODE COMPILATION and TESTING: </span></p>
+<p class="red">The TA must be able to compile your code using the g++ compiler installed in our 2401-F19.ova virtual box linux image. (A current gcc installation should be compatible with that, but you should check.). The TA will run the g++ command specified in your ReadMe.txt file and when compiling is complete run your exectuable to begin verifying the assignment requirements. If your code cannot be compiled as described the assignment mark will be zero. (The TA's will not debug your code in an effort to get it to compile.)</p>
+<p class="red">&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.4</span></span> CODE ORGANIZATION: Your code files should contain only one .cpp file containing the substring &quot;main&quot; in the title and that file should have the<span class="code"> int main()</span> entry point function for your code. Your object-oriented classes should each be represented in two files <span class="code">classname.h</span> and <span class="code">classname.cpp</span>. The .h header files should contain only type declarations and not executable code (method bodies). </p>
+<p>&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.5</span></span> VARIABLE AND FUNCTION NAMES: All of your variables, methods and classes should have meaningful names that reflect their purpose. Do not follow the convention in math courses where they say things like: &quot;let x be the number of customers and let y be the number of products...&quot;. Instead call your variables <span class="code">numberOfCustomers</span> or <span class="code">numberOfProducts</span>. Your program should not have any variables called &quot;x&quot; unless there is a good reason for them to be called &quot;x&quot;. (One exception: it's OK to call simple for-loop counters i,j and k etc. when the context is clear and VERY localized.)</p>
+<p>&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.6</span></span> MEANINGFUL CONSTANT NAMES: Constant values should have meaningful names and not just be represented as numbers or strings in expressions. For example don't say:<br>
+  <span class="code">cin.getline(input, 80);</span><br>
+  rather say:<br>
+  <span class="code">cin.getline(input, MAX_INPUT_LENGTH);</span></p>
+<p>&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.7</span></span> VARIABLES: All instance variables in your classes should be <span class="code">private</span>, unless a specific design requirements asks for them to be <span class="code">public</span> (which is unlikely). It is good programming practice to design objects that provide services to others through their <span class="code">public</span> methods. How they store their variables is their own private business. C or C++ unbounded arrays should not be used as public data structures. They should be encapsulated in a class which takes care of their length or number of elements. Also methods used soley by a class for its own housekeeping, and which are not considered part of the public inteface, should be in the <span class="code">private</span> section of a class.</p>
+<p>Your code should not be coupled through global variables. That is, objects should not communicate through the existance of global variables. Instead pass appropriate objects through constructor parameters.</p>
+<p>&nbsp;</p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.8</span></span> ROBUSTNESS REQUIREMENTS: Your program should not crash when the TA is marking it because of a bad pointer dereferences, out of bounds error memory access, or memory leaks or double deletions. <span class="red">We get especially annoyed by out of bounds  &quot;off by one&quot; errors! </span>Your code should not have any memory leaks or double deletions. Moreover the heap memory should be empty when your procedure <span class="courier">main() </span>returns. That is, all heap objects should be properly deleted before the program exits. </p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.9</span></span> COMMENTING REQUIREMENTS: Comments in your code must coincide with what the code actually does. It is a  common bug for people to modify code and forget to modify the comments and so you end up with comments that say one thing and code that actually does another. Don't use comments to clarify poor variable or method names -instead choose good variable names and method names that makes the code more &quot;self-commenting&quot;. </p>
+<p><span class="badge badge-warning"><span class="requirement_warning">PR0.10</span></span> OUTPUT LABELING REQUIREMENTS: Your programs output must have sufficient comments or remarks so that the output can understood. Don't have your program just write out a bunch of integers with no indication of what they mean or what the test they supposedly demonstrate.<span class="red"> The TA's should be able to read and understand your output WITHOUT having to look at your code to see what the output means.</span> It is a good idea to refer specifically to the numbered design requirements in your output to help indicate which requirement you are demonstrating.</p>
+<p>&nbsp;</p>
+<p class="red">VERY IMPORTANT: </p>
+<p class="red">Requirements tend to make sense to the person who wrote them  because that person knows what they were trying to say. You don't know what they were trying to say, only what they actually did say. So you need to ask lots of questions when things are not clear. A picture is worth a thousand words and a requirement fix is worth a thousand programing fixes.</p>
+<p class="red">Any sample code fragments provided with assignments  might have bugs (although none are  put there intentionally). It is part of your job to identify errors in the code and in the requirements and seek clarification. </p>
+<hr />
+<h2>Assignment #3 Design Requirements </h2>
+<h2>Background  </h2>
+
+<p>This development project pertains to the scenario detailed in the <span class="bold">Background</span> section of Assignment #1 and is a continuation of the work done in assignments #1 and #2. </p>
+<p>Some of the new requirements in this assignment likely require that you <span class="bold">refactor</span> some of your code from assignment #2. </p>
+<p><span class="bold">Refactoring</span> is modifying or re-organizing working code to improve its: readilbiltiy, reusability, maintainability, scalability, encapsulation, decoupling, fragility, efficiency etc. In other words, improve it in some way not directly associated with satisfying new functional requirements or simply fixing bugs. Refactoring does not typically add new functional capabilities and is not bug fixing.</p>
+<p>&nbsp;</p>
+<p>Our development client has decided they want to use an SQLite database to represent and presist the application's data about recordings, users,  playlists etc. An inital <span class="code">beatles.db</span> database has been created to reflect the ER data model (presented again below). This <span class="code">beatles.db</span> database is  the one used for tutorials 05 and 06. This assignment carries on where tutorial 06 leaves off.</p>
+<p>Here again is the ER data model that the database is based on.</p>
+<p><img src="images/01ERmodel.png"  alt="" width="672" height="420"/></p>
+<p>&nbsp;</p>
+<p>Here is a legend for the ER model symbols. The main feature of ER models are entities, relationships and keys.</p>
+<p>&nbsp;</p>
+<p><img src="images/01ERLegend.png" width="679" height="469" alt=""/></p>
+<p>&nbsp;</p>
+<p>Here is the scheme of the beatles.db database:</p>
+<p><img src="images/02Schema.png" width="706" height="435" alt=""/></p>
+<p>And finally here is a schema diagram showning the foreign keys. <span class="bold">Foreign Keys</span> are columns in one table that refer to the primary key columns of another table. This is how relationships (diamond shapes on an ER model) are implemented in relational databases.</p>
+<p><img src="images/02-1 Foreign Keys.png" width="675" height="432" alt=""/></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Scope  </h2>
+
+<p>This development phase (assignment) has the following scope.</p>
+<p>For this assignment we will add persistence to the data by using an SQLite database. You need to support all the same commands that were part of assignment #2 but changes made using the <span class="code">add</span> and <span class="code">delete</span> commands must be reflected in the  database. Also displaying results to the user with the <span class="code">show</span> commands must be consistent with how the data appears in the database. All the dot commands must still function but they do not have any affect of the database data.</p>
+<p>This assignment will require you to rework, or refactor, code you wrote in assignment #2. In particular there might be things that you did in main memory that you may not need to do if the data is available by accessing the SQLite database.</p>
+<p>When the application launches we will no longer be relying on an insert data script but rather the data will already be resident in the SQLite database.</p>
+<p>The following anticipated requirements are being left out of this phase (assignment): searching for songs and recordings, authentication of users. But now there  are persistence requirements in this assignment. That is, your data changes, as a result of your user commands, will have to be saved to the database and be there the next time the application is launched.</p>
+<p>The main C++ programming capabilities you will likely need for the assignment are:</p>
+<p>Accessing an SQLite database  from C++ code (done in tutorial 06).</p>
+<p>Learning some really basic SQL statements like <span class="code">insert</span> and <span class="code">delete</span>.</p>
+<p>Learning some really basic SQL querying using <span class="code">select</span>.</p>
+<p>Refactoring your assigment #2 code (or our assignment #2 answer code if you prefer).</p>
+<p>The application is required to maintain <span class="bold">Referential Integrity</span> at all times. Referential Integrity requires that at no time can data refer to a non existing object. For example, if a song is removed from the songs collection then no playlist or track should refer to that song since it no longer exists. Now however we also have to worry about referential integerity of the data in the database. </p>
+<hr />
+<h2>Domain Requirements</h2>
+<p><br />
+	<span class="requirement">DR3.1</span> Any song, CD, or Album titles or any band names should always be displayed for the user in <span class="bold">title case</span>. That is, the first letter of each word should be capitalized and any title or name that starts with the word &quot;The&quot; should be displayed with  the &quot;The&quot; at the end. (e.g. The Beatles should be displayed as Beatles, The).  Any application commands that display such strings for the user must display them in title case. <span class="red">Note we cannot assume that the data stored in the SQLite database is already in title case format. </span></p>
+<p><span class="bold">DR1.2)</span> Any searches for song titles or recording titles should ignore both case and punctuation. For example &quot;take the A train&quot; should match &quot;Take The 'A' Train&quot;. (We are not implementing search in this assignment so this should &quot;automatically&quot; be satisfied.)</p>
+<p><span class="bold">DR1.3)</span> Any searches for song titles or recording titles should accept placeholder characters repesented by a &quot;*&quot;. From example &quot;* Ipanema&quot; would match &quot;The Girl From Ipanema&quot;. (We are not implementing search in this assignment so this should &quot;automatically&quot; be satisfied.)</p>
+<hr />
+<h2>System Requirements (Constraints)</h2>
+<p><span class="requirement">SR3.1</span> The application should be written in C++ and have a command line interface.</p>
+<p><span class="requirement">SR3.2</span> The application code should be fully object-oriented. That is, except for the  <span class="code">int main(){}</span> entry point function and maybe some initialization helper functions, all  funtionality should be through <span class="bold">methods</span> of some <span class="code">class</span> (either <span class="code">static</span> or instance methods).</p>
+<p><span class="requirement">SR3.3</span> The application should decouple data objects from those used to implement the user interface or application control. Specifically any objects of types like <span class="code">Song</span>, <span class="code">Recording</span>, <span class="code">Track</span>, <span class="code">User</span>, or <span class="code">Playlist</span> should have NO awareness of the user interface or application control objects.</p>
+<p><span class="requirement">SR3.4</span> The application should use an SQLite database for presistent data.</p>
+<hr />
+<h2>Functional Requirements (User Requirements)</h2>
+<p class="red">&nbsp;</p>
+<p><span class="requirement">FR3.1</span> REPL Loop: When the application launches it should present the user with a command line terminal and prompt ready to receive commands. When a command executes the results should be displayed for the user followed by another prompt  and be ready to receive the next command. (like the bash terminal in linux). </p>
+<p><span class="requirement">FR3.2</span> All the dot commands described in assignment 2 (in the latest <span class="code">help.txt</span> file) should be functional but should not affect the data in the database. In particular the .log command should continue to use the OS file system and not the SQLite database for logs. </p>
+<p><span class="requirement">FR3.3</span> When the application launches it should be initialized with, or reflect, the data that is currently in it's SQLite database file. That is, it must no longer rely on an insert data script for intialization. The data in the database should contain at least the data in the supplied <span class="code">beatles.db</span> database but you can add more data if you want.</p>
+<p><span class="requirement">FR3.4</span> When the application quits its data should be preserved in the SQLite database.</p>
+<p><span class="requirement">FR3.5</span> The   application should implement all the <span class="code">add</span> commands described in the  latest <span class="code">help.txt</span> file. The resulting data changes should be reflected in (written to)  the SQLite database. </p>
+<p><span class="requirement">FR3.6</span> It should be possible to see the change in the database after the execution of the <span class="code">add</span> command. For example by using the sqlite3.exe application and directly accessing the database.</p>
+<p><span class="requirement">FR3.7</span> The   application should implement all the <span class="code">delete</span> commands described in the  latest help.txt file. The resulting data changes should be reflected in (written to)  the SQLite database. </p>
+<p><span class="requirement">FR3.8</span> It should be possible to see the change in the database after the execution of the <span class="code">delete</span> command. For example by using the sqlite3.exe application and directly accessing the database.</p>
+<p><span class="requirement">FR3.9</span> The   application should implement all the <span class="code">show</span> commands described in the  latest <span class="code">help.txt</span> file. The data displayed for the user should be consistent with that in the database at the time when the <span class="code">show</span> command is executed.</p>
+<p><span class="requirement">FR3.10</span> If external changes are made to the database (like with the sqlite3.exe application) those changes should be reflected in the results of any subsquent <span class="code">show</span> commands. That is, the behaviour of the <span class="code">show</span> command should be consistent with the state of the SQLite database at the time that <span class="code">show</span> was executed.</p>
+<p><span class="requirement">FR3.11</span> The application should still support reading scripts with the <span class="code">.read</span> command and any <span class="code">add</span> or <span class="code">delete</span> commands in the script should be written to the SQLite database.<br />
+</p>
+<p><span class="requirement">FR3.12</span> The application shall maintain <span class="bold">referential integrity</span> at all times. Referential integrity requires that at no time can the data refer to something that does not exist. For example if a song is removed from the application by removing it from the <span class="code">Songs</span> collection it cannot be referred to by a <span class="code">Playlist</span> or <span class="code">Track</span> object. The data stored in the SQLite database must not violate the referential integrity. That is, no foreign key must ever refer to a primary key value that does not exist in the database.</p>
+<p><span class="requirement">FR3.13</span> Referential Integrity conflicts shall be resolved using a &quot;Delete With Extreme Prejudice&quot; policy. This policy requires that any references to a non existing object should be deleted. For example, if a song is removed from the Songs collection then any references to it should be deleted by, for example, removing playlist items or removing <span class="code">Track</span> objects from the tracks collection. Data in the SQLite database the violates referential integrity should be deleted by the application when executing commands.</p>
+<hr />
+</body>
+</html>
